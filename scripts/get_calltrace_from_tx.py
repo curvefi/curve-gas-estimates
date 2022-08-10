@@ -1,6 +1,7 @@
 import ape
 from collections import namedtuple
-from typing import List, Dict
+from typing import Dict
+from ethpm_types import HexBytes
 
 from evm_trace import ParityTraceList, get_calltree_from_parity_trace
 from evm_trace.display import DisplayableCallTreeNode
@@ -34,7 +35,6 @@ def get_avg_gas_cost_per_method_for_tx(
 ) -> Dict[str, int]:
 
     call_costs = {}
-    c = 0
     for call in tree.display_nodes:
         if call.info.address.lower() != contract.lower():
             continue
