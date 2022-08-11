@@ -3,6 +3,11 @@ name: curve-gas-estimates
 plugins:
   - name: etherscan
 
+ethereum:
+  default_network: mainnet
+  mainnet:
+    default_provider: geth
+
 geth:
   ethereum:
     mainnet:

@@ -1,9 +1,19 @@
 import os
+import sys
 import ape
 import click
 import json
 
 from typing import Dict
+
+from rich import IO
+from rich.console import Console as RichConsole
+
+from scripts.call_tree_parser import parse_as_tree
+from scripts.get_calltrace_from_tx import (
+    _get_avg_gas_cost_per_method_for_tx,
+    _get_calltree,
+)
 
 
 from scripts.stableswap_pool_gas_calculator import _get_gas_table_for_stableswap_pool
@@ -15,6 +25,7 @@ REGISTRIES = {
     "CRYPTOSWAP_REGISTRY": "0x8F942C20D02bEfc377D41445793068908E2250D0",
     "CRYPTOSWAP_FACTORY": "0xF18056Bbd320E96A48e3Fbf8bC061322531aac99",
 }
+RICH_CONSOLE = RichConsole(file=sys.stdout)
 
 
 def __get_pools(registry: str):
@@ -54,7 +65,10 @@ def cli():
 @cli.command(
     cls=ape.cli.NetworkBoundCommand,
     name="stableswap-pools",
-    short_help="Get average gas costs for methods in pool contracts in a registry",
+    short_help=(
+        "Get average gas costs for methods in pool contracts in a registry "
+        "in the past `min_transaction` transactions",
+    ),
 )
 @ape.cli.network_option()
 @click.option(
@@ -107,7 +121,10 @@ def _get_gas_costs_for_stableswap_registry_pools(
 @cli.command(
     cls=ape.cli.NetworkBoundCommand,
     name="stableswap-pool",
-    short_help="Get average gas costs for methods in pool contracts in a registry",
+    short_help=(
+        "Get average gas costs for methods in a single pool in the past "
+        "`min_transaction` transactions",
+    ),
 )
 @ape.cli.network_option()
 @click.option("--pool", "-p", required=True, help="Pool address", type=str)
@@ -123,3 +140,28 @@ def _get_gas_costs_for_stableswap_pool(network, pool, min_transactions):
 
     gas_table = _get_gas_table_for_stableswap_pool(pool, min_transactions)
     print(json.dumps(gas_table, indent=4))
+
+
+@cli.command(
+    cls=ape.cli.NetworkBoundCommand,
+    name="stableswap-pool-tx",
+    short_help=(
+        "Get average gas costs for methods in a single pool in the past "
+        "`min_transaction` transactions",
+    ),
+)
+@ape.cli.network_option()
+@click.option("--pool", "-p", required=True, help="Pool address", type=str)
+@click.option("--tx", "-t", required=True, help="Transaction hash", type=str)
+def _get_gas_costs_for_tx_stableswap(network, pool, tx):
+
+    pool = ape.Contract(pool)
+
+    call_tree = _get_calltree(tx_hash=tx)
+    rich_call_tree = parse_as_tree(call_tree)
+
+    RICH_CONSOLE.print(f"Call trace for [bold blue]'{tx}'[/]")
+    RICH_CONSOLE.print(rich_call_tree)
+
+    gas_cost = _get_avg_gas_cost_per_method_for_tx(pool, call_tree)
+    RICH_CONSOLE.print_json(json.dumps(gas_cost, indent=4))
