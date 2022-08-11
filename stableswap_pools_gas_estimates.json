@@ -13,4 +13,33 @@
             "max": 310127
         }
     }
+}{
+    "0xC25099792E9349C7DD09759744ea681C7de2cb66": {
+        "remove_liquidity_one_coin": {
+            "mean": 185378,
+            "std": 940,
+            "min": 184292,
+            "max": 185921
+        },
+        "exchange_underlying": {
+            "mean": 306077,
+            "std": 5727,
+            "min": 302027,
+            "max": 310127
+        }
+    },
+    "0xc270b3B858c335B6BA5D5b10e2Da8a09976005ad": {
+        "exchange": {
+            "mean": 149087,
+            "std": 5011,
+            "min": 127807,
+            "max": 150677
+        },
+        "exchange_underlying": {
+            "mean": 282373,
+            "std": 32465,
+            "min": 223469,
+            "max": 322031
+        }
+    }
 }
