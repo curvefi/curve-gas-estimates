@@ -1,5 +1,4 @@
 import re
-import json
 
 from hexbytes import HexBytes
 
@@ -26,13 +25,13 @@ from ethpm_types.abi import MethodABI
 from eth_utils import humanize_hash, is_hex_address
 
 from rich.tree import Tree
-from typing import Optional, Dict, Any
+from typing import Optional, Dict, Any, List
 
 
 ZERO_ADDRESS = "0x0000000000000000000000000000000000000000"
 
 
-def parse_as_tree(call: CallTreeNode) -> Tree:
+def parse_as_tree(call: CallTreeNode, highlight_contracts: List[str]) -> Tree:
     """
     Create ``rich.Tree`` containing the nodes in a call trace
     for display purposes.
@@ -64,7 +63,18 @@ def parse_as_tree(call: CallTreeNode) -> Tree:
 
         return intermediary_node
 
-    contract_type = _chain_manager.contracts.get(address)
+    # only highlight contract addresses if they are in highlight_contracts
+    contract_type = None
+    if (
+        sum(
+            [
+                address.lower() == highlight_contract.lower()
+                for highlight_contract in highlight_contracts
+            ]
+        )
+        > 0
+    ):
+        contract_type = _chain_manager.contracts.get(address)
     selector = call.calldata[:4]
     call_signature = ""
 
@@ -81,7 +91,6 @@ def parse_as_tree(call: CallTreeNode) -> Tree:
         contract_name = contract_type.name
         if "symbol" in contract_type.view_methods:
             contract = _chain_manager.contracts.instance_at(address, contract_type)
-
             try:
                 contract_name = contract.symbol() or contract_name
             except ContractError:
@@ -123,7 +132,7 @@ def parse_as_tree(call: CallTreeNode) -> Tree:
                 )
             )
             if call.gas_cost:
-                call_signature += f" [{TraceStyles.GAS_COST}][{call.gas_cost} gas][/]"
+                call_signature += f" [bright_red][{call.gas_cost} gas][/]"
 
         elif contract_name is not None:
             call_signature = next(call.display_nodes).title  # type: ignore
@@ -154,7 +163,7 @@ def parse_as_tree(call: CallTreeNode) -> Tree:
 
     parent = Tree(call_signature, guide_style="dim")
     for sub_call in call.calls:
-        parent.add(parse_as_tree(sub_call))
+        parent.add(parse_as_tree(sub_call, highlight_contracts))
 
     return parent
 
@@ -253,8 +262,16 @@ def decode_address(
 
     # Use name of known contract if possible.
     checksum_address = _ecosystem.decode_address(address)
-    con_type = _chain_manager.contracts.get(checksum_address)
-    if con_type and con_type.name:
-        return con_type.name
+    contract_type = _chain_manager.contracts.get(checksum_address)
+    if contract_type:
+        contract_name = contract_type.name
+        if "symbol" in contract_type.view_methods:
+            contract = _chain_manager.contracts.instance_at(address, contract_type)
+            try:
+                contract_name = contract.symbol() or contract_name
+            except ContractError:
+                contract_name = contract_type.name
+
+        return contract_name
 
     return checksum_address

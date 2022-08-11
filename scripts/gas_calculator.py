@@ -92,12 +92,12 @@ def _get_gas_costs_for_stableswap_registry_pools(
     output_file_name = f"stableswap_pools_gas_estimates.json"
 
     # get all pools in the registry:
-    click.echo("Getting all stableswap pools ...")
+    RICH_CONSOLE.print("Getting all stableswap pools ...")
     pools = []
     for registry in [REGISTRIES["MAIN_REGISTRY"], REGISTRIES["STABLESWAP_FACTORY"]]:
         pools.extend(__get_pools(registry))
     pools = list(set(pools))
-    click.echo(f"... found {len(pools)} pools.")
+    RICH_CONSOLE.print(f"... found [red]{len(pools)} pools.")
 
     costs = {}
     for pool_addr in pools:
@@ -158,10 +158,12 @@ def _get_gas_costs_for_tx_stableswap(network, pool, tx):
     pool = ape.Contract(pool)
 
     call_tree = _get_calltree(tx_hash=tx)
-    rich_call_tree = parse_as_tree(call_tree)
+    rich_call_tree = parse_as_tree(call_tree, [pool.address])
 
     RICH_CONSOLE.print(f"Call trace for [bold blue]'{tx}'[/]")
     RICH_CONSOLE.print(rich_call_tree)
+
+    RICH_CONSOLE.print(f"\nGas consumed per method for [red]'{pool}':")
 
     gas_cost = _get_avg_gas_cost_per_method_for_tx(pool, call_tree)
     RICH_CONSOLE.print_json(json.dumps(gas_cost, indent=4))
