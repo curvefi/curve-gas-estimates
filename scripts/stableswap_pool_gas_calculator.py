@@ -1,9 +1,6 @@
 import ape
 import pandas
 
-
-from hexbytes import HexBytes
-
 from eth_abi.exceptions import InsufficientDataBytes, DecodingError
 
 from scripts.get_calltrace_from_tx import get_gas_cost_for_contract
@@ -12,7 +9,7 @@ from scripts.get_calltrace_from_tx import get_gas_cost_for_contract
 MAX_ZERO_TX_QUERIES = 10
 
 
-def __get_block_ranges(head: int, nblocks: int = 5000):
+def __get_block_ranges(head: int, nblocks: int = 20000):
     return head - nblocks, head
 
 
@@ -40,9 +37,16 @@ def _get_gas_table_for_stableswap_pool(pool_addr: str, min_transactions: int):
 
         if len(tx_in_block) == 0:
 
+            print(f"no transactions found in {block_start}:{block_end}")
+
             try:
                 pool.A(block_identifier=block_end)
                 zero_tx_queries += 1
+            except ape.exceptions.SignatureError:
+                # view method returns signature error which means ape cannot figure
+                # out the method abi properly. so we will be a bit more lenient here
+                block_start, block_end = __get_block_ranges(block_start)
+                continue
             except (InsufficientDataBytes, DecodingError) as e:
                 print(
                     f"Skipping pool {pool_addr} since query is probably before pool creation block"
