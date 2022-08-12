@@ -77,5 +77,6 @@ def _get_gas_table_for_stableswap_pool(pool_addr: str, min_transactions: int):
         .astype(int)
         .to_dict()
     )
+    gas_table["count"] = len(txes)
 
     return gas_table

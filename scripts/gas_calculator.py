@@ -85,15 +85,7 @@ def cli():
     type=int,
     default=500,
 )
-@click.option(
-    "--overwrite_previous_output",
-    type=bool,
-    default=True,
-    help="Overwrite previous output file",
-)
-def _get_gas_costs_for_stableswap_registry_pools(
-    network, min_transactions, overwrite_previous_output
-):
+def _get_gas_costs_for_stableswap_registry_pools(network, min_transactions):
 
     output_file_name = f"stableswap_pools_gas_estimates.json"
 
@@ -105,12 +97,7 @@ def _get_gas_costs_for_stableswap_registry_pools(
     pools = list(set(pools))
     RICH_CONSOLE.print(f"... found [red]{len(pools)} pools.")
 
-    costs = {}
     for pool_addr in pools:
-
-        # ignore pool if calculations already done
-        if pool_addr in costs and not overwrite_previous_output:
-            continue
 
         # get gas estimates
         decoded_gas_table = _get_gas_table_for_stableswap_pool(
