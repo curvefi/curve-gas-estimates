@@ -38,10 +38,12 @@ def _attempt_decode_call_signature(contract: ape.Contract, method_id: str):
 
     # decode method id (or at least try):
     try:
-        method_name = contract.contract_type.mutable_methods[HexBytes(method_id)].name
+        return contract.contract_type.mutable_methods[HexBytes(method_id)].name
     except KeyError:
-        method_name = contract.contract_type.view_methods[HexBytes(method_id)].name
-    return method_name
+        try:
+            return contract.contract_type.view_methods[HexBytes(method_id)].name
+        except KeyError:
+            return method_id
 
 
 def _get_avg_gas_cost_per_method_for_tx(
