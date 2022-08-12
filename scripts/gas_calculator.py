@@ -44,14 +44,20 @@ def __append_gas_table_to_output_file(
 ):
 
     # save gas costs to file
-    click.echo("saving gas costs to file ...")
+    RICH_CONSOLE.print(f"saving gas costs to file [green]{output_file_name}...")
+    file_exists = os.path.exists(output_file_name)
+
     costs = {}
-    if os.path.exists(output_file_name):
+    if file_exists:
         with open(output_file_name, "r") as f:
-            costs = json.load(f)
+            try:
+                costs = json.load(f)
+            except json.decoder.JSONDecodeError:
+                pass
 
     costs[pool_addr] = decoded_gas_table
-    with open(output_file_name, "a") as f:
+
+    with open(output_file_name, "w") as f:
         json.dump(costs, f, indent=4)
 
 
