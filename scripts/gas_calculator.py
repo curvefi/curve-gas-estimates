@@ -88,7 +88,7 @@ def cli():
 @click.option(
     "--overwrite_previous_output",
     type=bool,
-    default=False,
+    default=True,
     help="Overwrite previous output file",
 )
 def _get_gas_costs_for_stableswap_registry_pools(
