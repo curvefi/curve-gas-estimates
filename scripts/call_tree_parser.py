@@ -4,6 +4,7 @@ from hexbytes import HexBytes
 
 import ape
 from ape.api import EcosystemAPI
+from ape.exceptions import ContractError, DecodingError
 from ape.utils.trace import (
     _MethodTraceSignature,
     TraceStyles,
@@ -12,17 +13,13 @@ from ape.utils.trace import (
     _DEFAULT_INDENT,
 )
 from ape.utils.abi import Struct, parse_type
-from ape.exceptions import ContractError, DecodingError
 
+from eth_abi import decode_abi
+from ethpm_types.abi import MethodABI
+from eth_abi.exceptions import InsufficientDataBytes
+from eth_utils import humanize_hash, is_hex_address
 from evm_trace import CallTreeNode
 from evm_trace.display import DisplayableCallTreeNode
-
-from eth_abi.exceptions import InsufficientDataBytes
-from eth_abi import decode_abi
-
-from ethpm_types.abi import MethodABI
-
-from eth_utils import humanize_hash, is_hex_address
 
 from rich.tree import Tree
 from typing import Optional, Dict, Any, List

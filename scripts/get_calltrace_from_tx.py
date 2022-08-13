@@ -1,11 +1,10 @@
 import ape
 from collections import namedtuple
-from typing import Dict
 from ethpm_types import HexBytes
-
-from evm_trace import ParityTraceList, get_calltree_from_parity_trace
-from evm_trace.display import DisplayableCallTreeNode
 from evm_trace.base import CallTreeNode
+from evm_trace.display import DisplayableCallTreeNode
+from evm_trace import ParityTraceList, get_calltree_from_parity_trace
+from typing import Dict
 
 
 CallInfo = namedtuple("call", ["address", "gas_cost", "method_id"])
@@ -69,7 +68,9 @@ def _get_avg_gas_cost_per_method_for_tx(
     # average gas cost per method
     # warning: this is data compression!!! we only keep the average!
     for method_name, costs in call_costs.items():
-        call_costs[method_name] = sum(costs) // len(costs)
+        costs = [i for i in costs if i is not None]
+        if costs:
+            call_costs[method_name] = sum(costs) // len(costs)
 
     return call_costs
 

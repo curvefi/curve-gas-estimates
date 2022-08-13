@@ -1,22 +1,21 @@
-import os
-import sys
 import ape
 import click
 import json
+import os
+import sys
 
-from typing import Dict
-
-from rich import IO
 from rich.console import Console as RichConsole
+from typing import Dict
 
 from scripts.call_tree_parser import parse_as_tree
 from scripts.get_calltrace_from_tx import (
     _get_avg_gas_cost_per_method_for_tx,
     _get_calltree,
 )
-
-
-from scripts.stableswap_pool_gas_calculator import _get_gas_table_for_stableswap_pool
+from scripts.stableswap_pool_gas_calculator import (
+    _get_gas_table_for_stableswap_pool,
+    _get_gas_table_for_stableswap_pool_in_block_range,
+)
 
 
 REGISTRIES = {
@@ -25,6 +24,7 @@ REGISTRIES = {
     "CRYPTOSWAP_REGISTRY": "0x8F942C20D02bEfc377D41445793068908E2250D0",
     "CRYPTOSWAP_FACTORY": "0xF18056Bbd320E96A48e3Fbf8bC061322531aac99",
 }
+STABLESWAP_GAS_TABLE_FILE = f"stableswap_pools_gas_estimates.json"
 RICH_CONSOLE = RichConsole(file=sys.stdout)
 
 
@@ -55,10 +55,17 @@ def __append_gas_table_to_output_file(
             except json.decoder.JSONDecodeError:
                 pass
 
-    costs[pool_addr] = decoded_gas_table
+    # we check if pool_addr key exists in the previously cached gas table:
+    # if so, then we check if the new gas table has a higher number of transaction
+    # count that are used in the stats. If so, then we update the cached gas table.
+    if pool_addr in costs:
 
-    with open(output_file_name, "w") as f:
-        json.dump(costs, f, indent=4)
+        assert "count" in costs[pool_addr]  # dev: cost table should always have `count`
+
+        if decoded_gas_table["count"] > costs[pool_addr]["count"]:
+            costs[pool_addr] = decoded_gas_table
+            with open(output_file_name, "w") as f:
+                json.dump(costs, f, indent=4)
 
 
 @click.group(short_help="Gets average gas costs for contracts")
@@ -66,6 +73,10 @@ def cli():
     """
     Command-line helper for fetching historic gas costs
     """
+    pass
+
+
+# ---- writes to file stableswap_pools_gas_estimates.json---- #
 
 
 @cli.command(
@@ -87,8 +98,6 @@ def cli():
 )
 def _get_gas_costs_for_stableswap_registry_pools(network, min_transactions):
 
-    output_file_name = f"stableswap_pools_gas_estimates.json"
-
     # get all pools in the registry:
     RICH_CONSOLE.print("Getting all stableswap pools ...")
     pools = []
@@ -99,15 +108,23 @@ def _get_gas_costs_for_stableswap_registry_pools(network, min_transactions):
 
     for pool_addr in pools:
 
-        # get gas estimates
-        decoded_gas_table = _get_gas_table_for_stableswap_pool(
-            pool_addr, min_transactions
-        )
+        pool = ape.Contract(pool_addr)
 
-        # save gas costs to file
-        if decoded_gas_table:
-            __append_gas_table_to_output_file(
-                output_file_name, pool_addr, decoded_gas_table
+        try:
+            # get gas estimates
+            decoded_gas_table = _get_gas_table_for_stableswap_pool(
+                pool, min_transactions
+            )
+
+            # save gas costs to file
+            if decoded_gas_table:
+                __append_gas_table_to_output_file(
+                    STABLESWAP_GAS_TABLE_FILE, pool_addr, decoded_gas_table
+                )
+        except Exception:
+            RICH_CONSOLE.print_exception(show_locals=True)
+            RICH_CONSOLE.print(
+                f"Error getting gas costs for [red]{pool_addr}. Moving on ..."
             )
 
 
@@ -115,24 +132,31 @@ def _get_gas_costs_for_stableswap_registry_pools(network, min_transactions):
     cls=ape.cli.NetworkBoundCommand,
     name="stableswap-pool",
     short_help=(
-        "Get average gas costs for methods in a single pool in the past "
-        "`min_transaction` transactions",
+        "Get average gas costs for methods in a single pool for txes "
+        "in block range `start_block` to `end_block`",
     ),
 )
 @ape.cli.network_option()
 @click.option("--pool", "-p", required=True, help="Pool address", type=str)
-@click.option(
-    "--min_transactions",
-    "-m",
-    required=True,
-    help="Minimum number of transactions to use in the calculation",
-    type=int,
-    default=500,
-)
-def _get_gas_costs_for_stableswap_pool(network, pool, min_transactions):
+@click.option("--start_block", "-s", required=True, help="Start block", type=int)
+@click.option("--end_block", "-e", required=True, help="End block", type=int)
+def _get_gas_costs_for_stableswap_pool(network, pool, start_block, end_block):
 
-    gas_table = _get_gas_table_for_stableswap_pool(pool, min_transactions)
-    print(json.dumps(gas_table, indent=4))
+    pool = ape.Contract(pool)
+
+    decoded_gas_table = _get_gas_table_for_stableswap_pool_in_block_range(
+        pool, start_block, end_block
+    )
+
+    if decoded_gas_table:
+        __append_gas_table_to_output_file(
+            STABLESWAP_GAS_TABLE_FILE, pool.address, decoded_gas_table
+        )
+
+        RICH_CONSOLE.print_json(json.dumps(decoded_gas_table, indent=4))
+
+
+# ---- read only ---- #
 
 
 @cli.command(
@@ -144,19 +168,16 @@ def _get_gas_costs_for_stableswap_pool(network, pool, min_transactions):
     ),
 )
 @ape.cli.network_option()
-@click.option("--pool", "-p", required=True, help="Pool address", type=str)
+@click.option("--contractaddr", "-p", required=True, help="Contract address", type=str)
 @click.option("--tx", "-t", required=True, help="Transaction hash", type=str)
-def _get_gas_costs_for_tx_stableswap(network, pool, tx):
+def _get_gas_costs_tx(network, contractaddr, tx):
 
-    pool = ape.Contract(pool)
-
+    contract = ape.Contract(contractaddr)
     call_tree = _get_calltree(tx_hash=tx)
-    rich_call_tree = parse_as_tree(call_tree, [pool.address])
+    rich_call_tree = parse_as_tree(call_tree, [contract.address])
 
     RICH_CONSOLE.print(f"Call trace for [bold blue]'{tx}'[/]")
     RICH_CONSOLE.print(rich_call_tree)
-
-    RICH_CONSOLE.print(f"\nGas consumed per method for [red]'{pool}':")
-
-    gas_cost = _get_avg_gas_cost_per_method_for_tx(pool, call_tree)
+    RICH_CONSOLE.print(f"\nGas consumed per method for [red]'{contract}':")
+    gas_cost = _get_avg_gas_cost_per_method_for_tx(contract, call_tree)
     RICH_CONSOLE.print_json(json.dumps(gas_cost, indent=4))
