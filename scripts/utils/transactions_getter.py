@@ -68,10 +68,7 @@ def get_all_transactions_for_contract(contract: ape.Contract) -> List[str]:
                 # we count it as a zero tx query else it will just keep searching and reverting until block = 0
                 zero_tx_queries += 1
                 continue
-            except:  # catch all
-                RICH_CONSOLE.print(
-                    f"[yellow]Skipping contract [red]{contract.address} since query is probably before contract creation block"
-                )
+            except:  # catch all: it reverts most likely because pool didnt exist then
                 break
 
         txes = txes + tx_in_block

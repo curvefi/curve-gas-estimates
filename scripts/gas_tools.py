@@ -94,7 +94,7 @@ def cli():
     required=True,
     help="Minimum number of transactions to use in the calculation",
     type=int,
-    default=1000,
+    default=10000,
 )
 def get_gas_costs_for_stableswap_registry_pools(network, max_transactions):
 
