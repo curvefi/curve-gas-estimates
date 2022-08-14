@@ -4,6 +4,7 @@ import json
 import os
 import sys
 from rich.console import Console as RichConsole
+from rich.json import JSON
 from scripts.utils import (
     get_all_transactions_for_contract,
     get_transactions_in_block_range,
@@ -37,20 +38,12 @@ def _get_pools(registry: str):
     return pools
 
 
-def __dump_json(costs, pool_addr, decoded_gas_table, output_file_name):
-    costs[pool_addr] = decoded_gas_table
-    with open(output_file_name, "w") as f:
-        json.dump(costs, f, indent=4)
-
-    RICH_CONSOLE.print("... saved!")
-
-
 def _append_gas_table_to_output_file(
     output_file_name: str, pool_addr: str, decoded_gas_table: Dict
 ):
 
     # save gas costs to file
-    RICH_CONSOLE.print(f"saving gas costs to file [green]{output_file_name}...")
+    RICH_CONSOLE.log(f"saving gas costs to file [green]{output_file_name}...")
     file_exists = os.path.exists(output_file_name)
 
     costs = {}
@@ -66,7 +59,11 @@ def _append_gas_table_to_output_file(
     # count that are used in the stats. If so, then we update the cached gas table.
     if pool_addr not in costs or decoded_gas_table["count"] > costs[pool_addr]["count"]:
 
-        __dump_json(costs, pool_addr, decoded_gas_table, output_file_name)
+        costs[pool_addr] = decoded_gas_table
+        with open(output_file_name, "w") as f:
+            json.dump(costs, f, indent=4)
+
+        RICH_CONSOLE.log("... saved!")
 
 
 @click.group(short_help="Gets average gas costs for contracts")
@@ -99,12 +96,12 @@ def cli():
 def get_gas_costs_for_stableswap_registry_pools(network, max_transactions):
 
     # get all pools in the registry:
-    RICH_CONSOLE.print("Getting all stableswap pools ...")
+    RICH_CONSOLE.log("Getting all stableswap pools ...")
     pools = []
     for registry in [REGISTRIES["MAIN_REGISTRY"], REGISTRIES["STABLESWAP_FACTORY"]]:
         pools.extend(_get_pools(registry))
     pools = list(set(pools))
-    RICH_CONSOLE.print(f"... found [red]{len(pools)} pools.")
+    RICH_CONSOLE.log(f"... found [red]{len(pools)} pools.")
 
     for pool_addr in pools:
 
@@ -118,7 +115,7 @@ def get_gas_costs_for_stableswap_registry_pools(network, max_transactions):
             txes = txes[-max_transactions:]
 
         if len(txes) == 0:
-            RICH_CONSOLE.print(f"No transactions found for {pool.address}. Moving on.")
+            RICH_CONSOLE.log(f"No transactions found for {pool.address}. Moving on.")
             continue
 
         # get gas stats:
@@ -148,7 +145,7 @@ def get_gas_costs_for_stableswap_pool(network, pool, start_block, end_block):
     pool = ape.Contract(pool)
 
     # get all transactions
-    RICH_CONSOLE.print(
+    RICH_CONSOLE.log(
         f"Getting transactions for pool [red]{pool.address} in range [blue]{start_block} - [blue]{end_block} ..."
     )
     tx_in_block = get_transactions_in_block_range(pool, start_block, end_block)
@@ -166,7 +163,7 @@ def get_gas_costs_for_stableswap_pool(network, pool, start_block, end_block):
 
             RICH_CONSOLE.print_json(json.dumps(gas_stats, indent=4))
 
-    RICH_CONSOLE.print("[yellow]No gas stats saved.")
+    RICH_CONSOLE.log("[yellow]No gas stats saved.")
 
 
 # ---- read only ---- #
@@ -187,8 +184,8 @@ def get_gas_costs_tx(network, contractaddr, tx):
     if call_tree:
         rich_call_tree = parse_as_tree(call_tree, [contract.address])
 
-        RICH_CONSOLE.print(f"Call trace for [bold blue]'{tx}'[/]")
-        RICH_CONSOLE.print(rich_call_tree)
-        RICH_CONSOLE.print(f"\nGas consumed per method for [red]'{contract}':")
+        RICH_CONSOLE.log(f"Call trace for [bold blue]'{tx}'[/]")
+        RICH_CONSOLE.log(rich_call_tree)
+        RICH_CONSOLE.log(f"\nGas consumed per method for [red]'{contract}':")
         gas_cost = get_avg_gas_cost_per_method_for_tx(contract, call_tree)
         RICH_CONSOLE.print_json(json.dumps(gas_cost, indent=4))

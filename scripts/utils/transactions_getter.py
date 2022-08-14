@@ -1,5 +1,4 @@
 import ape
-from eth_abi.exceptions import InsufficientDataBytes, DecodingError
 from rich.console import Console as RichConsole
 import sys
 from typing import List, Tuple
@@ -26,7 +25,7 @@ def get_transactions_in_block_range(
                 tx_in_block.append(tx)
 
     txes = list(set(tx_in_block))
-    RICH_CONSOLE.print(f"Found [red]{len(txes)} transactions.")
+    RICH_CONSOLE.log(f"Found [red]{len(txes)} transactions.")
     return txes
 
 
@@ -35,7 +34,7 @@ def get_all_transactions_for_contract(contract: ape.Contract) -> List[str]:
     head = ape.chain.blocks.height
     block_start, block_end = get_block_ranges(head)
 
-    RICH_CONSOLE.print(f"Getting transactions for contract [red]{contract.address}.")
+    RICH_CONSOLE.log(f"Getting transactions for contract [red]{contract.address}.")
     zero_tx_queries = 0
     txes = []
     while zero_tx_queries < MAX_ZERO_TX_QUERIES:
@@ -50,7 +49,7 @@ def get_all_transactions_for_contract(contract: ape.Contract) -> List[str]:
 
         if len(tx_in_block) == 0:
 
-            RICH_CONSOLE.print(
+            RICH_CONSOLE.log(
                 f"no transactions found in [blue]{block_start} - [blue]{block_end} ..."
             )
 
@@ -72,7 +71,7 @@ def get_all_transactions_for_contract(contract: ape.Contract) -> List[str]:
                 break
 
         txes = txes + tx_in_block
-        RICH_CONSOLE.print(f"Total transactions: [blue]{len(txes)}")
+        RICH_CONSOLE.log(f"Total transactions: [blue]{len(txes)}")
         block_start, block_end = get_block_ranges(block_start)
 
     return txes

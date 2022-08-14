@@ -5,7 +5,7 @@ from rich.console import Console as RichConsole
 import sys
 from typing import List, Dict
 
-from .call_tree_utils import (
+from .call_tree_parser import (
     attempt_decode_call_signature,
     get_calltree,
 )
@@ -18,14 +18,14 @@ def compute_univariate_gaussian_gas_stats_for_txes(
     pool: ape.Contract, txes: List[str]
 ) -> Dict:
 
-    RICH_CONSOLE.print("Fetching gas costs ...")
+    RICH_CONSOLE.log("Fetching gas costs ...")
     gas_costs_for_pool = []
     for tx in txes:
         gas_costs = get_gas_cost_for_contract(pool, tx)
         if gas_costs:
             gas_costs_for_pool.append(gas_costs)
 
-    RICH_CONSOLE.print("... done!")
+    RICH_CONSOLE.log("... done!")
     df_gas_costs = DataFrame(gas_costs_for_pool)
 
     gas_table = (
@@ -35,6 +35,7 @@ def compute_univariate_gaussian_gas_stats_for_txes(
         .astype(int)
         .to_dict()
     )
+    gas_table = {"univariate": gas_table}
     gas_table["count"] = len(txes)
 
     return gas_table
@@ -82,7 +83,7 @@ def get_gas_cost_for_contract(contract: ape.Contract, tx_hash: str) -> Dict[str,
             agg_gas_costs = get_avg_gas_cost_per_method_for_tx(contract, call_tree)
             return agg_gas_costs
         except:
-            RICH_CONSOLE.print(
+            RICH_CONSOLE.log(
                 f"[yellow]Could not get gas cost for contract [red]{contract} at tx [red]{tx_hash}."
             )
             RICH_CONSOLE.print_exception()

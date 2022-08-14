@@ -1,7 +1,3 @@
-import re
-
-from hexbytes import HexBytes
-
 import ape
 from ape.api import EcosystemAPI
 from ape.exceptions import ContractError, DecodingError
@@ -13,19 +9,66 @@ from ape.utils.trace import (
     _DEFAULT_INDENT,
 )
 from ape.utils.abi import Struct, parse_type
-
+from collections import namedtuple
 from eth_abi import decode_abi
-from ethpm_types.abi import MethodABI
 from eth_abi.exceptions import InsufficientDataBytes
 from eth_utils import humanize_hash, is_hex_address
-from evm_trace import CallTreeNode
+from ethpm_types import HexBytes
+from ethpm_types.abi import MethodABI
+from evm_trace.base import CallTreeNode
 from evm_trace.display import DisplayableCallTreeNode
-
+from evm_trace import CallTreeNode, ParityTraceList, get_calltree_from_parity_trace
+from hexbytes import HexBytes
+import re
 from rich.tree import Tree
+from rich.console import Console as RichConsole
+import sys
 from typing import Optional, Dict, Any, List
 
 
+CallInfo = namedtuple("call", ["address", "gas_cost", "method_id"])
+RICH_CONSOLE = RichConsole(file=sys.stdout)
 ZERO_ADDRESS = "0x0000000000000000000000000000000000000000"
+
+
+class DecodeMethodIDError(Exception):
+    """Could not decode method id"""
+
+
+class CallInfoParser(DisplayableCallTreeNode):
+    @property
+    def info(self) -> CallInfo:
+
+        return CallInfo(
+            address=self.call.address.hex(),
+            gas_cost=self.call.gas_cost,
+            method_id=self.call.calldata[:4].hex(),
+        )
+
+
+def get_calltree(tx_hash: str) -> Optional[CallTreeNode]:
+
+    web3 = ape.chain.provider.web3
+    raw_trace_list = web3.manager.request_blocking("trace_transaction", [tx_hash])
+    parity_trace = ParityTraceList.parse_obj(raw_trace_list)
+    tree = get_calltree_from_parity_trace(parity_trace, display_cls=CallInfoParser)
+    return tree
+
+
+def attempt_decode_call_signature(contract: ape.Contract, method_id: str):
+
+    # decode method id (or at least try):
+    try:
+        return contract.contract_type.mutable_methods[HexBytes(method_id)].name
+    except KeyError:
+        try:
+            return contract.contract_type.view_methods[HexBytes(method_id)].name
+        except KeyError:
+            RICH_CONSOLE.log(
+                f"Could not decode method id [pink]{method_id} for contract [red]{contract}"
+            )
+            RICH_CONSOLE.print_exception()
+            return method_id
 
 
 def parse_as_tree(call: CallTreeNode, highlight_contracts: List[str]) -> Tree:

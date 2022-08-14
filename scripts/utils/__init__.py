@@ -6,5 +6,4 @@ from .transactions_getter import (
     get_all_transactions_for_contract,
     get_transactions_in_block_range,
 )
-from .call_tree_utils import get_calltree, attempt_decode_call_signature
-from .call_tree_parser import parse_as_tree
+from .call_tree_parser import get_calltree, attempt_decode_call_signature, parse_as_tree
