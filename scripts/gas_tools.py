@@ -4,7 +4,6 @@ import json
 import os
 import sys
 from rich.console import Console as RichConsole
-from rich.json import JSON
 from scripts.utils import (
     get_all_transactions_for_contract,
     get_transactions_in_block_range,
@@ -15,27 +14,11 @@ from scripts.utils import (
 )
 from typing import Dict
 
+from scripts.utils.pool_getter import get_stableswap_registry_pools
 
-REGISTRIES = {
-    "MAIN_REGISTRY": "0x90E00ACe148ca3b23Ac1bC8C240C2a7Dd9c2d7f5",
-    "STABLESWAP_FACTORY": "0xB9fC157394Af804a3578134A6585C0dc9cc990d4",
-    "CRYPTOSWAP_REGISTRY": "0x8F942C20D02bEfc377D41445793068908E2250D0",
-    "CRYPTOSWAP_FACTORY": "0xF18056Bbd320E96A48e3Fbf8bC061322531aac99",
-}
+
 STABLESWAP_GAS_TABLE_FILE = "./stableswap_pools_gas_estimates.json"
 RICH_CONSOLE = RichConsole(file=sys.stdout)
-
-
-def _get_pools(registry: str):
-    pools = []
-    registry = ape.Contract(registry)
-    pool_count = registry.pool_count()
-    for i in range(pool_count):
-        pool = registry.pool_list(i)
-        if pool not in pools:
-            pools.append(pool)
-
-    return pools
 
 
 def _append_gas_table_to_output_file(
@@ -96,12 +79,7 @@ def cli():
 def get_gas_costs_for_stableswap_registry_pools(network, max_transactions):
 
     # get all pools in the registry:
-    RICH_CONSOLE.log("Getting all stableswap pools ...")
-    pools = []
-    for registry in [REGISTRIES["MAIN_REGISTRY"], REGISTRIES["STABLESWAP_FACTORY"]]:
-        pools.extend(_get_pools(registry))
-    pools = list(set(pools))
-    RICH_CONSOLE.log(f"... found [red]{len(pools)} pools.")
+    pools = get_stableswap_registry_pools()
 
     for pool_addr in pools:
 
