@@ -105,7 +105,7 @@ def _fetch_costs_and_save(pools, max_transactions, output_file_name, gas_stats_m
                     gas_stats[gas_stats_keys[0]] = gstats[gas_stats_keys[0]]
 
             # save gas costs to file
-            if gas_stats[gas_stats_keys[0]]:
+            if has_data:
                 gas_stats["min_block"] = min(blocks)
                 gas_stats["max_block"] = max(blocks)
                 _append_gas_table_to_output_file(output_file_name, pool_addr, gas_stats)
@@ -155,36 +155,65 @@ def cli():
 )
 def pool_gas_stats(network, max_transactions, pool, pool_type):
 
+    settings = {}
     match pool_type:
         case "stableswap":
-            pool_getter = get_stableswap_registry_pools
-            output_file_name = STABLESWAP_GAS_TABLE_FILE
-            statmethods = [compute_univariate_gaussian_gas_stats_for_txes]
+            settings["pool_getter"] = [get_stableswap_registry_pools]
+            settings["output_file_name"] = [STABLESWAP_GAS_TABLE_FILE]
+            settings["statmethods"] = [[compute_univariate_gaussian_gas_stats_for_txes]]
         case "cryptoswap":
-            pool_getter = get_cryptoswap_registry_pools
-            output_file_name = CRYPTOSWAP_GAS_TABLE_FILE
-            statmethods = [
-                compute_univariate_gaussian_gas_stats_for_txes,
-                compute_bimodal_gaussian_gas_stats_for_txes,
+            settings["pool_getter"] = [get_cryptoswap_registry_pools]
+            settings["output_file_name"] = [CRYPTOSWAP_GAS_TABLE_FILE]
+            settings["statmethods"] = [
+                [
+                    compute_univariate_gaussian_gas_stats_for_txes,
+                    compute_bimodal_gaussian_gas_stats_for_txes,
+                ]
             ]
+        case "all":
+            settings = {
+                "pool_getter": [
+                    get_stableswap_registry_pools,
+                    get_cryptoswap_registry_pools,
+                ],
+                "output_file_name": [
+                    STABLESWAP_GAS_TABLE_FILE,
+                    CRYPTOSWAP_GAS_TABLE_FILE,
+                ],
+                "statmethods": [
+                    [compute_univariate_gaussian_gas_stats_for_txes],
+                    [
+                        compute_univariate_gaussian_gas_stats_for_txes,
+                        compute_bimodal_gaussian_gas_stats_for_txes,
+                    ],
+                ],
+            }
         case _:
             RICH_CONSOLE.print(
                 "[red]Invalid pool type. Must be either stableswap or cryptoswap"
             )
             return
 
-    # get all pools in the registry:
-    if not pool:
-        pools = pool_getter()
-    else:
-        pools = [pool]
+    if settings:
 
-    _fetch_costs_and_save(
-        pools,
-        max_transactions,
-        output_file_name,
-        statmethods,
-    )
+        for i in range(len(settings["pool_getter"])):
+
+            pool_getter = settings["pool_getter"][i]
+            output_file_name = settings["output_file_name"][i]
+            statmethods = settings["statmethods"][i]
+
+            # get all pools in the registry:
+            if not pool:
+                pools = pool_getter()
+            else:
+                pools = [pool]
+
+            _fetch_costs_and_save(
+                pools,
+                max_transactions,
+                output_file_name,
+                statmethods,
+            )
 
 
 # ---- read only ---- #

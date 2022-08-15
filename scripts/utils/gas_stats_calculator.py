@@ -68,14 +68,14 @@ def compute_bimodal_gaussian_gas_stats_for_txes(gas_costs_for_pool: DataFrame) -
         gas_table_method["max"] = int(max(gas_costs)[0])
 
         # means:
-        gas_table_method["mean_low"] = int(bimodal_model_fit.means_[0][0])
-        gas_table_method["mean_high"] = int(bimodal_model_fit.means_[1][0])
+        gas_table_method["mean_1"] = int(bimodal_model_fit.means_[0][0])
+        gas_table_method["mean_2"] = int(bimodal_model_fit.means_[1][0])
 
         # standard deviations:
         covariances = bimodal_model_fit.covariances_
         std = [numpy.sqrt(numpy.trace(covariances[i]) / 2) for i in range(2)]
-        gas_table_method["std_low"] = int(std[0])
-        gas_table_method["std_high"] = int(std[1])
+        gas_table_method["std_1"] = int(std[0])
+        gas_table_method["std_2"] = int(std[1])
         gas_table_method["count"] = gas_costs.shape[0]
 
         gas_table[method_name] = gas_table_method
