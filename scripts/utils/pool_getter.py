@@ -32,3 +32,16 @@ def get_stableswap_registry_pools() -> List[str]:
     pools = list(set(pools))
     RICH_CONSOLE.log(f"... found [red]{len(pools)} pools.")
     return pools
+
+
+def get_cryptoswap_registry_pools() -> List[str]:
+    RICH_CONSOLE.log("Getting all cryptoswap pools ...")
+    pools = []
+    for registry in [
+        REGISTRIES["CRYPTOSWAP_REGISTRY"],
+        REGISTRIES["CRYPTOSWAP_FACTORY"],
+    ]:
+        pools.extend(_get_pools(registry))
+    pools = list(set(pools))
+    RICH_CONSOLE.log(f"... found [red]{len(pools)} pools.")
+    return pools

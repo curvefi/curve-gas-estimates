@@ -1,3 +1,4 @@
 git+https://github.com/ApeWorX/ape
 git+https://github.com/apeworx/evm-trace
 black
+sklearn
