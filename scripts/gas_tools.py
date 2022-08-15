@@ -21,21 +21,26 @@ STABLESWAP_GAS_TABLE_FILE = "./stableswap_pools_gas_estimates.json"
 RICH_CONSOLE = RichConsole(file=sys.stdout)
 
 
+def _load_cache(filename: str):
+
+    costs = {}
+    if os.path.exists(filename):
+        with open(filename, "r") as f:
+            try:
+                costs = json.load(f)
+            except json.decoder.JSONDecodeError:
+                pass
+
+    return costs
+
+
 def _append_gas_table_to_output_file(
     output_file_name: str, pool_addr: str, decoded_gas_table: Dict
 ):
 
     # save gas costs to file
     RICH_CONSOLE.log(f"saving gas costs to file [green]{output_file_name}...")
-    file_exists = os.path.exists(output_file_name)
-
-    costs = {}
-    if file_exists:
-        with open(output_file_name, "r") as f:
-            try:
-                costs = json.load(f)
-            except json.decoder.JSONDecodeError:
-                pass
+    costs = _load_cache(output_file_name)
 
     # we check if pool_addr key exists in the previously cached gas table:
     # if so, then we check if the new gas table has a higher number of transaction
@@ -61,7 +66,7 @@ def cli():
 
 @cli.command(
     cls=ape.cli.NetworkBoundCommand,
-    name="stableswap-registry",
+    name="stableswap",
     short_help=(
         "Get average gas costs for methods in pool contracts in a registry "
         "in the past `min_transaction` transactions",
@@ -76,72 +81,64 @@ def cli():
     type=int,
     default=10000,
 )
-def get_gas_costs_for_stableswap_registry_pools(network, max_transactions):
+@click.option(
+    "--pool",
+    "-p",
+    required=False,
+    help="Pool address to get gas costs for. If specified, then it does not check registry",
+    type=str,
+    default="",
+)
+def stableswap(network, max_transactions, pool):
+
+    # load cache if it exists:
+    costs = _load_cache(STABLESWAP_GAS_TABLE_FILE)
 
     # get all pools in the registry:
-    pools = get_stableswap_registry_pools()
+    if not pool:
+        pools = get_stableswap_registry_pools()
+    else:
+        pools = [pool]
 
     for pool_addr in pools:
 
         pool = ape.Contract(pool_addr)
 
         # get transaction
-        txes = list(set(get_all_transactions_for_contract(pool)))
+        txes = list(set(get_all_transactions_for_contract(pool, max_transactions)))
+        if len(txes) == 0:
+            RICH_CONSOLE.log(f"No transactions found for {pool.address}. Moving on.")
+            continue
 
         # truncate list if max_transactions is specified:
         if len(txes) > max_transactions:
             txes = txes[-max_transactions:]
 
-        if len(txes) == 0:
-            RICH_CONSOLE.log(f"No transactions found for {pool.address}. Moving on.")
-            continue
+        # check if we have cached gas costs for this pool. if we do
+        # then we check if the current txes > tx count in cached stats.
+        # if so, we update the cached stats:
+        blocks = list(list(zip(*txes))[0])
+        if (
+            pool.address not in costs
+            or len(txes) > costs[pool.address]["count"]
+            or costs[pool.address]["max_block"] < max(blocks)
+        ):
 
-        # get gas stats:
-        gas_stats = compute_univariate_gaussian_gas_stats_for_txes(pool, txes)
-
-        # save gas costs to file
-        if gas_stats:
-            _append_gas_table_to_output_file(
-                STABLESWAP_GAS_TABLE_FILE, pool_addr, gas_stats
+            # get gas stats:
+            gas_stats = compute_univariate_gaussian_gas_stats_for_txes(
+                pool, list(list(zip(*txes))[1])
             )
 
+            # save gas costs to file
+            if gas_stats:
+                gas_stats["min_block"] = min(blocks)
+                gas_stats["max_block"] = max(blocks)
+                _append_gas_table_to_output_file(
+                    STABLESWAP_GAS_TABLE_FILE, pool_addr, gas_stats
+                )
+        else:
 
-@cli.command(
-    cls=ape.cli.NetworkBoundCommand,
-    name="stableswap",
-    short_help=(
-        "Get average gas costs for methods in a single pool for txes "
-        "in block range `start_block` to `end_block`",
-    ),
-)
-@ape.cli.network_option()
-@click.option("--pool", "-p", required=True, help="Pool address", type=str)
-@click.option("--start_block", "-s", required=True, help="Start block", type=int)
-@click.option("--end_block", "-e", required=True, help="End block", type=int)
-def get_gas_costs_for_stableswap_pool(network, pool, start_block, end_block):
-
-    pool = ape.Contract(pool)
-
-    # get all transactions
-    RICH_CONSOLE.log(
-        f"Getting transactions for pool [red]{pool.address} in range [blue]{start_block} - [blue]{end_block} ..."
-    )
-    tx_in_block = get_transactions_in_block_range(pool, start_block, end_block)
-
-    if tx_in_block:
-
-        # get gas stats
-        gas_stats = compute_univariate_gaussian_gas_stats_for_txes(pool, tx_in_block)
-
-        # save gas costs to file
-        if gas_stats:
-            _append_gas_table_to_output_file(
-                STABLESWAP_GAS_TABLE_FILE, pool.address, gas_stats
-            )
-
-            RICH_CONSOLE.print_json(json.dumps(gas_stats, indent=4))
-
-    RICH_CONSOLE.log("[yellow]No gas stats saved.")
+            RICH_CONSOLE.log("Pool cached with similar gas stats. Moving on.")
 
 
 # ---- read only ---- #

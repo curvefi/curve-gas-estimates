@@ -1,7 +1,7 @@
 import ape
 from rich.console import Console as RichConsole
 import sys
-from typing import List, Tuple
+from typing import Dict, List, Tuple
 
 MAX_ZERO_TX_QUERIES = 1
 RICH_CONSOLE = RichConsole(file=sys.stdout)
@@ -12,8 +12,11 @@ def get_block_ranges(head: int, nblocks: int = 1000000) -> Tuple[int, int]:
 
 
 def get_transactions_in_block_range(
-    pool: ape.Contract, block_start: int, block_end: int, logged_txes: List[str] = []
-):
+    pool: ape.Contract,
+    block_start: int,
+    block_end: int,
+    logged_txes: List[Tuple[int, str]] = [],
+) -> List[Tuple[int, str]]:
 
     tx_in_block = []
     for _, event in pool._events_.items():
@@ -21,15 +24,18 @@ def get_transactions_in_block_range(
         initialised_event = ape.contracts.ContractEvent(pool, event[0].abi)
         for log in initialised_event.range(block_start, block_end):
             tx = log.transaction_hash
+            block_number = log.block_number
             if tx not in logged_txes:
-                tx_in_block.append(tx)
+                tx_in_block.append((block_number, tx))
 
     txes = list(set(tx_in_block))
     RICH_CONSOLE.log(f"Found [red]{len(txes)} transactions.")
     return txes
 
 
-def get_all_transactions_for_contract(contract: ape.Contract) -> List[str]:
+def get_all_transactions_for_contract(
+    contract: ape.Contract, max_transactions: int
+) -> List[Tuple[int, str]]:
 
     head = ape.chain.blocks.height
     block_start, block_end = get_block_ranges(head)
@@ -37,7 +43,7 @@ def get_all_transactions_for_contract(contract: ape.Contract) -> List[str]:
     RICH_CONSOLE.log(f"Getting transactions for contract [red]{contract.address}.")
     zero_tx_queries = 0
     txes = []
-    while zero_tx_queries < MAX_ZERO_TX_QUERIES:
+    while zero_tx_queries < MAX_ZERO_TX_QUERIES and len(txes) < max_transactions:
 
         if block_start == block_end:  # reached genesis
             RICH_CONSOLE("[yellow]Reached genesis.")
