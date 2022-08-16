@@ -1,14 +1,14 @@
 import ape
 from rich.console import Console as RichConsole
 import sys
-from typing import Dict, List, Tuple
+from typing import List, Tuple
 
 MAX_ZERO_TX_QUERIES = 1
 RICH_CONSOLE = RichConsole(file=sys.stdout)
 
 
-def get_block_ranges(head: int, nblocks: int = 1000000) -> Tuple[int, int]:
-    return max(head - nblocks, 0), max(head, 0)
+def get_block_ranges(end_block: int, nblocks: int = 1000000) -> Tuple[int, int]:
+    return max(end_block - nblocks, 0), max(end_block, 0)
 
 
 def get_transactions_in_block_range(

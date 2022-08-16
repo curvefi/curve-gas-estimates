@@ -1,3 +1,6 @@
+# inspired from ape > evm-trace
+# this is just a functional version of their object oriented call trace parser
+
 import ape
 from ape.api import EcosystemAPI
 from ape.exceptions import ContractError, DecodingError
@@ -26,13 +29,8 @@ import sys
 from typing import Optional, Dict, Any, List
 
 
-CallInfo = namedtuple("call", ["address", "gas_cost", "method_id"])
+CallInfo = namedtuple("call", ["address", "gas_cost", "method_id", "calldata"])
 RICH_CONSOLE = RichConsole(file=sys.stdout)
-ZERO_ADDRESS = "0x0000000000000000000000000000000000000000"
-
-
-class DecodeMethodIDError(Exception):
-    """Could not decode method id"""
 
 
 class CallInfoParser(DisplayableCallTreeNode):
@@ -43,6 +41,7 @@ class CallInfoParser(DisplayableCallTreeNode):
             address=self.call.address.hex(),
             gas_cost=self.call.gas_cost,
             method_id=self.call.calldata[:4].hex(),
+            calldata=self.call.calldata,
         )
 
 
@@ -55,20 +54,18 @@ def get_calltree(tx_hash: str) -> Optional[CallTreeNode]:
     return tree
 
 
-def attempt_decode_call_signature(contract: ape.Contract, method_id: str):
+def attempt_decode_call_signature(contract: ape.Contract, selector: str):
 
     # decode method id (or at least try):
-    try:
-        return contract.contract_type.mutable_methods[HexBytes(method_id)].name
-    except KeyError:
-        try:
-            return contract.contract_type.view_methods[HexBytes(method_id)].name
-        except KeyError:
-            RICH_CONSOLE.log(
-                f"Could not decode method id [pink]{method_id} for contract [red]{contract}"
-            )
-            RICH_CONSOLE.print_exception()
-            return method_id
+    method = selector.hex()
+    if selector in contract.contract_type.mutable_methods:
+        method = contract.contract_type.mutable_methods[selector]
+        return method.name or f"<{selector}>"
+    elif selector in contract.contract_type.view_methods:
+        method = contract.contract_type.view_methods[selector]
+        return method.name or f"<{selector}>"
+    else:
+        return method.hex()
 
 
 def parse_as_tree(call: CallTreeNode, highlight_contracts: List[str]) -> Tree:

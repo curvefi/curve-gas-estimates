@@ -99,7 +99,7 @@ def get_avg_gas_cost_per_method_for_tx(
             continue
 
         # decode call signature
-        method_name = attempt_decode_call_signature(contract, call.info.method_id)
+        method_name = attempt_decode_call_signature(contract, call.info.calldata[:4])
 
         if call.info.method_id not in call_costs.keys():
             call_costs[method_name] = [call.info.gas_cost]
