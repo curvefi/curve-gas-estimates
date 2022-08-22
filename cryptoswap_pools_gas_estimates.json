@@ -1,0 +1,3040 @@
+{
+    "0xb2c248C0B0DB7d28dfa0123438B40Bb31FB8AA05": {
+        "univariate": {
+            "exchange": {
+                "mean": 423106,
+                "std": 0,
+                "min": 423106,
+                "max": 423106,
+                "count": 1
+            },
+            "add_liquidity": {
+                "mean": 302052,
+                "std": 88314,
+                "min": 200532,
+                "max": 361155,
+                "count": 3
+            }
+        },
+        "bimodal": {
+            "add_liquidity": {
+                "min": 200532,
+                "max": 361155,
+                "mean_1": 352812,
+                "mean_2": 200531,
+                "std_1": 5899,
+                "std_2": 0,
+                "count": 3
+            }
+        },
+        "min_block": 15186495,
+        "max_block": 15226125
+    },
+    "0x782115c863A05abF8795dF377D89AAd1AAdF4Dfa": {
+        "univariate": {
+            "add_liquidity": {
+                "mean": 262530,
+                "std": 0,
+                "min": 262530,
+                "max": 262530,
+                "count": 1
+            }
+        },
+        "min_block": 14535380,
+        "max_block": 14535380
+    },
+    "0x9838eCcC42659FA8AA7daF2aD134b53984c9427b": {
+        "univariate": {
+            "claim_admin_fees": {
+                "mean": 134776,
+                "std": 9282,
+                "min": 108638,
+                "max": 158972,
+                "count": 114
+            },
+            "get_dy": {
+                "mean": 54953,
+                "std": 9693,
+                "min": 33042,
+                "max": 101176,
+                "count": 234
+            },
+            "exchange": {
+                "mean": 262583,
+                "std": 64420,
+                "min": 137367,
+                "max": 408947,
+                "count": 1786
+            },
+            "remove_liquidity_one_coin": {
+                "mean": 235121,
+                "std": 46845,
+                "min": 176391,
+                "max": 370103,
+                "count": 331
+            },
+            "add_liquidity": {
+                "mean": 233607,
+                "std": 49280,
+                "min": 163045,
+                "max": 406907,
+                "count": 454
+            },
+            "balances": {
+                "mean": 3498,
+                "std": 0,
+                "min": 3498,
+                "max": 3498,
+                "count": 3
+            },
+            "price_oracle": {
+                "mean": 2899,
+                "std": 147,
+                "min": 910,
+                "max": 2910,
+                "count": 184
+            },
+            "remove_liquidity": {
+                "mean": 126260,
+                "std": 2096,
+                "min": 116357,
+                "max": 133457,
+                "count": 93
+            },
+            "apply_new_parameters": {
+                "mean": 65839,
+                "std": 0,
+                "min": 65839,
+                "max": 65839,
+                "count": 4
+            },
+            "commit_new_parameters": {
+                "mean": 73699,
+                "std": 61126,
+                "min": 45816,
+                "max": 183045,
+                "count": 5
+            },
+            "ramp_A_gamma": {
+                "mean": 57347,
+                "std": 0,
+                "min": 57347,
+                "max": 57347,
+                "count": 1
+            }
+        },
+        "bimodal": {
+            "claim_admin_fees": {
+                "min": 108638,
+                "max": 158972,
+                "mean_1": 153298,
+                "mean_2": 133114,
+                "std_1": 1838,
+                "std_2": 5427,
+                "count": 114
+            },
+            "get_dy": {
+                "min": 33042,
+                "max": 101176,
+                "mean_1": 54026,
+                "mean_2": 97468,
+                "std_1": 5234,
+                "std_2": 3455,
+                "count": 234
+            },
+            "exchange": {
+                "min": 137367,
+                "max": 408947,
+                "mean_1": 235335,
+                "mean_2": 373808,
+                "std_1": 25197,
+                "std_2": 15697,
+                "count": 1786
+            },
+            "remove_liquidity_one_coin": {
+                "min": 176391,
+                "max": 370103,
+                "mean_1": 355006,
+                "mean_2": 223616,
+                "std_1": 4943,
+                "std_2": 20995,
+                "count": 331
+            },
+            "add_liquidity": {
+                "min": 163045,
+                "max": 406907,
+                "mean_1": 190036,
+                "mean_2": 252489,
+                "std_1": 4749,
+                "std_2": 33723,
+                "count": 454
+            },
+            "balances": {
+                "min": 3498,
+                "max": 3498,
+                "mean_1": 3497,
+                "mean_2": 0,
+                "std_1": 0,
+                "std_2": 0,
+                "count": 3
+            },
+            "price_oracle": {
+                "min": 910,
+                "max": 2910,
+                "mean_1": 2910,
+                "mean_2": 909,
+                "std_1": 0,
+                "std_2": 0,
+                "count": 184
+            },
+            "remove_liquidity": {
+                "min": 116357,
+                "max": 133457,
+                "mean_1": 125936,
+                "mean_2": 133456,
+                "std_1": 1027,
+                "std_2": 0,
+                "count": 93
+            },
+            "apply_new_parameters": {
+                "min": 65839,
+                "max": 65839,
+                "mean_1": 65838,
+                "mean_2": 0,
+                "std_1": 0,
+                "std_2": 0,
+                "count": 4
+            },
+            "commit_new_parameters": {
+                "min": 45816,
+                "max": 183045,
+                "mean_1": 46362,
+                "mean_2": 183044,
+                "std_1": 223,
+                "std_2": 0,
+                "count": 5
+            }
+        },
+        "min_block": 13526668,
+        "max_block": 15382345
+    },
+    "0x9a22CDB1CA1cdd2371cD5BB5199564C4E89465eb": {
+        "univariate": {
+            "exchange": {
+                "mean": 286256,
+                "std": 66583,
+                "min": 118913,
+                "max": 428338,
+                "count": 2716
+            },
+            "remove_liquidity_one_coin": {
+                "mean": 294504,
+                "std": 51586,
+                "min": 197861,
+                "max": 372963,
+                "count": 113
+            },
+            "add_liquidity": {
+                "mean": 314438,
+                "std": 58490,
+                "min": 211525,
+                "max": 438527,
+                "count": 333
+            },
+            "exchange_underlying": {
+                "mean": 331969,
+                "std": 55041,
+                "min": 203405,
+                "max": 428385,
+                "count": 298
+            },
+            "remove_liquidity": {
+                "mean": 125116,
+                "std": 16249,
+                "min": 107387,
+                "max": 174225,
+                "count": 39
+            },
+            "balances": {
+                "mean": 3678,
+                "std": 0,
+                "min": 3678,
+                "max": 3678,
+                "count": 118
+            },
+            "get_dy": {
+                "mean": 52247,
+                "std": 3148,
+                "min": 47868,
+                "max": 55374,
+                "count": 4
+            },
+            "coins": {
+                "mean": 1838,
+                "std": 1154,
+                "min": 1172,
+                "max": 3172,
+                "count": 3
+            }
+        },
+        "bimodal": {
+            "exchange": {
+                "min": 118913,
+                "max": 428338,
+                "mean_1": 247285,
+                "mean_2": 359551,
+                "std_1": 33053,
+                "std_2": 14643,
+                "count": 2716
+            },
+            "remove_liquidity_one_coin": {
+                "min": 197861,
+                "max": 372963,
+                "mean_1": 239194,
+                "mean_2": 334270,
+                "std_1": 16066,
+                "std_2": 13821,
+                "count": 113
+            },
+            "add_liquidity": {
+                "min": 211525,
+                "max": 438527,
+                "mean_1": 342905,
+                "mean_2": 236935,
+                "std_1": 28035,
+                "std_2": 10106,
+                "count": 333
+            },
+            "exchange_underlying": {
+                "min": 203405,
+                "max": 428385,
+                "mean_1": 269331,
+                "mean_2": 372424,
+                "std_1": 18142,
+                "std_2": 13666,
+                "count": 298
+            },
+            "remove_liquidity": {
+                "min": 107387,
+                "max": 174225,
+                "mean_1": 133980,
+                "mean_2": 107386,
+                "std_1": 8664,
+                "std_2": 0,
+                "count": 39
+            },
+            "balances": {
+                "min": 3678,
+                "max": 3678,
+                "mean_1": 3678,
+                "mean_2": 0,
+                "std_1": 0,
+                "std_2": 0,
+                "count": 118
+            },
+            "get_dy": {
+                "min": 47868,
+                "max": 55374,
+                "mean_1": 53707,
+                "mean_2": 47867,
+                "std_1": 833,
+                "std_2": 0,
+                "count": 4
+            },
+            "coins": {
+                "min": 1172,
+                "max": 3172,
+                "mean_1": 1171,
+                "mean_2": 3171,
+                "std_1": 0,
+                "std_2": 0,
+                "count": 3
+            }
+        },
+        "min_block": 14362630,
+        "max_block": 15383739
+    },
+    "0x799D141e83D88996C48B98A4f8EB3D96AB422DD3": {
+        "univariate": {
+            "add_liquidity": {
+                "mean": 398228,
+                "std": 71212,
+                "min": 347874,
+                "max": 448583,
+                "count": 2
+            },
+            "exchange": {
+                "mean": 186038,
+                "std": 0,
+                "min": 186038,
+                "max": 186038,
+                "count": 1
+            }
+        },
+        "bimodal": {
+            "add_liquidity": {
+                "min": 347874,
+                "max": 448583,
+                "mean_1": 347873,
+                "mean_2": 448582,
+                "std_1": 0,
+                "std_2": 0,
+                "count": 2
+            }
+        },
+        "min_block": 15186716,
+        "max_block": 15330134
+    },
+    "0x162B4Deefc73a5277b09Bd7A02D25Da73D66183D": {
+        "univariate": {
+            "remove_liquidity": {
+                "mean": 103138,
+                "std": 0,
+                "min": 103138,
+                "max": 103138,
+                "count": 1
+            },
+            "add_liquidity": {
+                "mean": 300968,
+                "std": 0,
+                "min": 300968,
+                "max": 300968,
+                "count": 1
+            }
+        },
+        "min_block": 15319586,
+        "max_block": 15320142
+    },
+    "0x75A6787C7EE60424358B449B539A8b774c9B4862": {
+        "univariate": {
+            "exchange": {
+                "mean": 281500,
+                "std": 58062,
+                "min": 156449,
+                "max": 406165,
+                "count": 815
+            },
+            "exchange_underlying": {
+                "mean": 279973,
+                "std": 60952,
+                "min": 202470,
+                "max": 367315,
+                "count": 19
+            },
+            "add_liquidity": {
+                "mean": 290546,
+                "std": 55988,
+                "min": 168477,
+                "max": 410835,
+                "count": 60
+            },
+            "balances": {
+                "mean": 3791,
+                "std": 533,
+                "min": 3678,
+                "max": 6178,
+                "count": 22
+            },
+            "remove_liquidity_one_coin": {
+                "mean": 265565,
+                "std": 46885,
+                "min": 206895,
+                "max": 326872,
+                "count": 17
+            },
+            "remove_liquidity": {
+                "mean": 126066,
+                "std": 26865,
+                "min": 100155,
+                "max": 185176,
+                "count": 9
+            },
+            "get_dy": {
+                "mean": 47210,
+                "std": 7512,
+                "min": 32915,
+                "max": 55428,
+                "count": 11
+            },
+            "coins": {
+                "mean": 1922,
+                "std": 1035,
+                "min": 1172,
+                "max": 3172,
+                "count": 8
+            }
+        },
+        "bimodal": {
+            "exchange": {
+                "min": 156449,
+                "max": 406165,
+                "mean_1": 247077,
+                "mean_2": 353413,
+                "std_1": 23264,
+                "std_2": 15699,
+                "count": 815
+            },
+            "exchange_underlying": {
+                "min": 202470,
+                "max": 367315,
+                "mean_1": 338450,
+                "mean_2": 227978,
+                "std_1": 13724,
+                "std_2": 16883,
+                "count": 19
+            },
+            "add_liquidity": {
+                "min": 168477,
+                "max": 410835,
+                "mean_1": 365823,
+                "mean_2": 273322,
+                "std_1": 23358,
+                "std_2": 31183,
+                "count": 60
+            },
+            "balances": {
+                "min": 3678,
+                "max": 6178,
+                "mean_1": 3677,
+                "mean_2": 6177,
+                "std_1": 0,
+                "std_2": 0,
+                "count": 22
+            },
+            "remove_liquidity_one_coin": {
+                "min": 206895,
+                "max": 326872,
+                "mean_1": 223930,
+                "mean_2": 312405,
+                "std_1": 9038,
+                "std_2": 5855,
+                "count": 17
+            },
+            "remove_liquidity": {
+                "min": 100155,
+                "max": 185176,
+                "mean_1": 100154,
+                "mean_2": 139022,
+                "std_1": 0,
+                "std_2": 15145,
+                "count": 9
+            },
+            "get_dy": {
+                "min": 32915,
+                "max": 55428,
+                "mean_1": 36222,
+                "mean_2": 51333,
+                "std_1": 2208,
+                "std_2": 1518,
+                "count": 11
+            },
+            "coins": {
+                "min": 1172,
+                "max": 3172,
+                "mean_1": 1171,
+                "mean_2": 3171,
+                "std_1": 0,
+                "std_2": 0,
+                "count": 8
+            }
+        },
+        "min_block": 14481613,
+        "max_block": 15389110
+    },
+    "0x21410232B484136404911780bC32756D5d1a9Fa9": {
+        "univariate": {
+            "exchange": {
+                "mean": 314925,
+                "std": 55495,
+                "min": 136410,
+                "max": 407091,
+                "count": 4518
+            },
+            "coins": {
+                "mean": 2737,
+                "std": 843,
+                "min": 1172,
+                "max": 3172,
+                "count": 23
+            },
+            "lp_price": {
+                "mean": 26174,
+                "std": 465,
+                "min": 25068,
+                "max": 26586,
+                "count": 18
+            },
+            "remove_liquidity_one_coin": {
+                "mean": 258954,
+                "std": 42748,
+                "min": 157797,
+                "max": 319650,
+                "count": 19
+            },
+            "balances": {
+                "mean": 3796,
+                "std": 532,
+                "min": 3678,
+                "max": 6178,
+                "count": 505
+            },
+            "add_liquidity": {
+                "mean": 269505,
+                "std": 68783,
+                "min": 188043,
+                "max": 364860,
+                "count": 5
+            },
+            "get_dy": {
+                "mean": 39278,
+                "std": 9845,
+                "min": 20410,
+                "max": 57918,
+                "count": 49
+            }
+        },
+        "bimodal": {
+            "exchange": {
+                "min": 136410,
+                "max": 407091,
+                "mean_1": 357714,
+                "mean_2": 262746,
+                "std_1": 13322,
+                "std_2": 26884,
+                "count": 4518
+            },
+            "coins": {
+                "min": 1172,
+                "max": 3172,
+                "mean_1": 3171,
+                "mean_2": 1171,
+                "std_1": 0,
+                "std_2": 0,
+                "count": 23
+            },
+            "lp_price": {
+                "min": 25068,
+                "max": 26586,
+                "mean_1": 26500,
+                "mean_2": 25814,
+                "std_1": 92,
+                "std_2": 286,
+                "count": 18
+            },
+            "remove_liquidity_one_coin": {
+                "min": 157797,
+                "max": 319650,
+                "mean_1": 281336,
+                "mean_2": 197191,
+                "std_1": 9329,
+                "std_2": 20388,
+                "count": 19
+            },
+            "balances": {
+                "min": 3678,
+                "max": 6178,
+                "mean_1": 3678,
+                "mean_2": 6177,
+                "std_1": 0,
+                "std_2": 0,
+                "count": 505
+            },
+            "add_liquidity": {
+                "min": 188043,
+                "max": 364860,
+                "mean_1": 227212,
+                "mean_2": 333417,
+                "std_1": 23196,
+                "std_2": 23353,
+                "count": 5
+            },
+            "get_dy": {
+                "min": 20410,
+                "max": 57918,
+                "mean_1": 34183,
+                "mean_2": 54081,
+                "std_1": 3496,
+                "std_2": 1621,
+                "count": 49
+            }
+        },
+        "min_block": 14486396,
+        "max_block": 15384208
+    },
+    "0x79cB6a84FbEC1FE2d66B705a1e7f6482C2993049": {
+        "univariate": {
+            "exchange": {
+                "mean": 207368,
+                "std": 6138,
+                "min": 203028,
+                "max": 211709,
+                "count": 2
+            },
+            "remove_liquidity": {
+                "mean": 103012,
+                "std": 0,
+                "min": 103012,
+                "max": 103012,
+                "count": 1
+            },
+            "add_liquidity": {
+                "mean": 251644,
+                "std": 33432,
+                "min": 229132,
+                "max": 290060,
+                "count": 3
+            }
+        },
+        "bimodal": {
+            "exchange": {
+                "min": 203028,
+                "max": 211709,
+                "mean_1": 211708,
+                "mean_2": 203027,
+                "std_1": 0,
+                "std_2": 0,
+                "count": 2
+            },
+            "add_liquidity": {
+                "min": 229132,
+                "max": 290060,
+                "mean_1": 232435,
+                "mean_2": 290059,
+                "std_1": 2336,
+                "std_2": 0,
+                "count": 3
+            }
+        },
+        "min_block": 15266862,
+        "max_block": 15269812
+    },
+    "0xef04f337fCB2ea220B6e8dB5eDbE2D774837581c": {
+        "univariate": {
+            "remove_liquidity_one_coin": {
+                "mean": 331256,
+                "std": 65802,
+                "min": 236353,
+                "max": 408343,
+                "count": 16
+            },
+            "exchange": {
+                "mean": 334179,
+                "std": 81892,
+                "min": 139336,
+                "max": 447719,
+                "count": 222
+            },
+            "add_liquidity": {
+                "mean": 312077,
+                "std": 71040,
+                "min": 214010,
+                "max": 431572,
+                "count": 16
+            },
+            "get_dy": {
+                "mean": 69604,
+                "std": 1442,
+                "min": 67939,
+                "max": 70442,
+                "count": 3
+            },
+            "exchange_underlying": {
+                "mean": 294604,
+                "std": 0,
+                "min": 294604,
+                "max": 294604,
+                "count": 1
+            },
+            "balances": {
+                "mean": 6178,
+                "std": 0,
+                "min": 6178,
+                "max": 6178,
+                "count": 1
+            },
+            "remove_liquidity": {
+                "mean": 124409,
+                "std": 12248,
+                "min": 103495,
+                "max": 133595,
+                "count": 7
+            }
+        },
+        "bimodal": {
+            "remove_liquidity_one_coin": {
+                "min": 236353,
+                "max": 408343,
+                "mean_1": 261460,
+                "mean_2": 385542,
+                "std_1": 10733,
+                "std_2": 12277,
+                "count": 16
+            },
+            "exchange": {
+                "min": 139336,
+                "max": 447719,
+                "mean_1": 381700,
+                "mean_2": 240667,
+                "std_1": 33388,
+                "std_2": 33450,
+                "count": 222
+            },
+            "add_liquidity": {
+                "min": 214010,
+                "max": 431572,
+                "mean_1": 413886,
+                "mean_2": 278605,
+                "std_1": 9369,
+                "std_2": 29163,
+                "count": 16
+            },
+            "get_dy": {
+                "min": 67939,
+                "max": 70442,
+                "mean_1": 67938,
+                "mean_2": 70436,
+                "std_1": 0,
+                "std_2": 3,
+                "count": 3
+            },
+            "remove_liquidity": {
+                "min": 103495,
+                "max": 133595,
+                "mean_1": 133594,
+                "mean_2": 112161,
+                "std_1": 0,
+                "std_2": 4333,
+                "count": 7
+            }
+        },
+        "min_block": 14389702,
+        "max_block": 15371555
+    },
+    "0x3211C6cBeF1429da3D0d58494938299C92Ad5860": {
+        "univariate": {
+            "exchange": {
+                "mean": 315653,
+                "std": 58633,
+                "min": 115260,
+                "max": 424868,
+                "count": 22976
+            },
+            "exchange_underlying": {
+                "mean": 317582,
+                "std": 52138,
+                "min": 134205,
+                "max": 384545,
+                "count": 1580
+            },
+            "remove_liquidity": {
+                "mean": 130680,
+                "std": 10644,
+                "min": 116747,
+                "max": 150947,
+                "count": 27
+            },
+            "remove_liquidity_one_coin": {
+                "mean": 318213,
+                "std": 53388,
+                "min": 199925,
+                "max": 372834,
+                "count": 85
+            },
+            "add_liquidity": {
+                "mean": 340230,
+                "std": 53697,
+                "min": 200887,
+                "max": 429414,
+                "count": 183
+            },
+            "balances": {
+                "mean": 3747,
+                "std": 410,
+                "min": 3678,
+                "max": 6178,
+                "count": 471
+            },
+            "price_oracle": {
+                "mean": 21988,
+                "std": 4355,
+                "min": 7808,
+                "max": 24638,
+                "count": 28
+            },
+            "coins": {
+                "mean": 2563,
+                "std": 940,
+                "min": 1172,
+                "max": 3172,
+                "count": 23
+            },
+            "get_dy": {
+                "mean": 46503,
+                "std": 10307,
+                "min": 22912,
+                "max": 57978,
+                "count": 26
+            },
+            "lp_price": {
+                "mean": 25773,
+                "std": 165,
+                "min": 25678,
+                "max": 25964,
+                "count": 3
+            }
+        },
+        "bimodal": {
+            "exchange": {
+                "min": 115260,
+                "max": 424868,
+                "mean_1": 358635,
+                "mean_2": 255072,
+                "std_1": 13654,
+                "std_2": 27234,
+                "count": 22976
+            },
+            "exchange_underlying": {
+                "min": 134205,
+                "max": 384545,
+                "mean_1": 348278,
+                "mean_2": 241234,
+                "std_1": 12244,
+                "std_2": 16664,
+                "count": 1580
+            },
+            "remove_liquidity": {
+                "min": 116747,
+                "max": 150947,
+                "mean_1": 116746,
+                "mean_2": 136546,
+                "std_1": 0,
+                "std_2": 4409,
+                "count": 27
+            },
+            "remove_liquidity_one_coin": {
+                "min": 199925,
+                "max": 372834,
+                "mean_1": 348370,
+                "mean_2": 238437,
+                "std_1": 9487,
+                "std_2": 22604,
+                "count": 85
+            },
+            "add_liquidity": {
+                "min": 200887,
+                "max": 429414,
+                "mean_1": 360771,
+                "mean_2": 243929,
+                "std_1": 21714,
+                "std_2": 17875,
+                "count": 183
+            },
+            "balances": {
+                "min": 3678,
+                "max": 6178,
+                "mean_1": 3678,
+                "mean_2": 6177,
+                "std_1": 0,
+                "std_2": 0,
+                "count": 471
+            },
+            "price_oracle": {
+                "min": 7808,
+                "max": 24638,
+                "mean_1": 16890,
+                "mean_2": 24141,
+                "std_1": 3485,
+                "std_2": 267,
+                "count": 28
+            },
+            "coins": {
+                "min": 1172,
+                "max": 3172,
+                "mean_1": 3171,
+                "mean_2": 1171,
+                "std_1": 0,
+                "std_2": 0,
+                "count": 23
+            },
+            "get_dy": {
+                "min": 22912,
+                "max": 57978,
+                "mean_1": 50693,
+                "mean_2": 28236,
+                "std_1": 3702,
+                "std_2": 2981,
+                "count": 26
+            },
+            "lp_price": {
+                "min": 25678,
+                "max": 25964,
+                "mean_1": 25963,
+                "mean_2": 25677,
+                "std_1": 0,
+                "std_2": 0,
+                "count": 3
+            }
+        },
+        "min_block": 14405419,
+        "max_block": 15384515
+    },
+    "0xF3456E8061461e144b3f252E69DcD5b6070fdEE0": {
+        "univariate": {
+            "exchange": {
+                "mean": 355989,
+                "std": 61462,
+                "min": 191905,
+                "max": 464214,
+                "count": 165
+            },
+            "exchange_underlying": {
+                "mean": 353192,
+                "std": 70501,
+                "min": 253154,
+                "max": 474599,
+                "count": 9
+            },
+            "add_liquidity": {
+                "mean": 359071,
+                "std": 12842,
+                "min": 349990,
+                "max": 368152,
+                "count": 2
+            }
+        },
+        "bimodal": {
+            "exchange": {
+                "min": 191905,
+                "max": 464214,
+                "mean_1": 380113,
+                "mean_2": 259618,
+                "std_1": 28188,
+                "std_2": 19914,
+                "count": 165
+            },
+            "exchange_underlying": {
+                "min": 253154,
+                "max": 474599,
+                "mean_1": 379124,
+                "mean_2": 258425,
+                "std_1": 35280,
+                "std_2": 3760,
+                "count": 9
+            },
+            "add_liquidity": {
+                "min": 349990,
+                "max": 368152,
+                "mean_1": 368151,
+                "mean_2": 349989,
+                "std_1": 0,
+                "std_2": 0,
+                "count": 2
+            }
+        },
+        "min_block": 15034635,
+        "max_block": 15385807
+    },
+    "0x752eBeb79963cf0732E9c0fec72a49FD1DEfAEAC": {
+        "univariate": {
+            "exchange": {
+                "mean": 308768,
+                "std": 56426,
+                "min": 141946,
+                "max": 397349,
+                "count": 7852
+            },
+            "add_liquidity": {
+                "mean": 240653,
+                "std": 62215,
+                "min": 148326,
+                "max": 391072,
+                "count": 420
+            },
+            "remove_liquidity_one_coin": {
+                "mean": 281757,
+                "std": 45094,
+                "min": 178617,
+                "max": 352416,
+                "count": 94
+            },
+            "balances": {
+                "mean": 3621,
+                "std": 0,
+                "min": 3621,
+                "max": 3621,
+                "count": 81
+            },
+            "get_dy": {
+                "mean": 46110,
+                "std": 5812,
+                "min": 30309,
+                "max": 52826,
+                "count": 25
+            },
+            "remove_liquidity": {
+                "mean": 96553,
+                "std": 16955,
+                "min": 86702,
+                "max": 138838,
+                "count": 40
+            },
+            "price_oracle": {
+                "mean": 20935,
+                "std": 2303,
+                "min": 4820,
+                "max": 21700,
+                "count": 53
+            },
+            "exchange_underlying": {
+                "mean": 278127,
+                "std": 56092,
+                "min": 225380,
+                "max": 337890,
+                "count": 6
+            },
+            "coins": {
+                "mean": 473,
+                "std": 0,
+                "min": 473,
+                "max": 473,
+                "count": 1
+            }
+        },
+        "bimodal": {
+            "exchange": {
+                "min": 141946,
+                "max": 397349,
+                "mean_1": 261318,
+                "mean_2": 359409,
+                "std_1": 24558,
+                "std_2": 12775,
+                "count": 7852
+            },
+            "add_liquidity": {
+                "min": 148326,
+                "max": 391072,
+                "mean_1": 182127,
+                "mean_2": 277804,
+                "std_1": 3849,
+                "std_2": 37010,
+                "count": 420
+            },
+            "remove_liquidity_one_coin": {
+                "min": 178617,
+                "max": 352416,
+                "mean_1": 227391,
+                "mean_2": 312216,
+                "std_1": 17578,
+                "std_2": 10222,
+                "count": 94
+            },
+            "balances": {
+                "min": 3621,
+                "max": 3621,
+                "mean_1": 3621,
+                "mean_2": 0,
+                "std_1": 0,
+                "std_2": 0,
+                "count": 81
+            },
+            "get_dy": {
+                "min": 30309,
+                "max": 52826,
+                "mean_1": 50322,
+                "mean_2": 42820,
+                "std_1": 11,
+                "std_2": 4066,
+                "count": 25
+            },
+            "remove_liquidity": {
+                "min": 86702,
+                "max": 138838,
+                "mean_1": 117013,
+                "mean_2": 86701,
+                "std_1": 11006,
+                "std_2": 0,
+                "count": 40
+            },
+            "price_oracle": {
+                "min": 4820,
+                "max": 21700,
+                "mean_1": 21245,
+                "mean_2": 4819,
+                "std_1": 329,
+                "std_2": 0,
+                "count": 53
+            },
+            "exchange_underlying": {
+                "min": 225380,
+                "max": 337890,
+                "mean_1": 227789,
+                "mean_2": 328465,
+                "std_1": 2374,
+                "std_2": 9080,
+                "count": 6
+            }
+        },
+        "min_block": 13931888,
+        "max_block": 15386245
+    },
+    "0x50f3752289e1456BfA505afd37B241bca23e685d": {
+        "univariate": {
+            "exchange": {
+                "mean": 331458,
+                "std": 61235,
+                "min": 168874,
+                "max": 446685,
+                "count": 1702
+            },
+            "add_liquidity": {
+                "mean": 404807,
+                "std": 60621,
+                "min": 222978,
+                "max": 473540,
+                "count": 310
+            },
+            "remove_liquidity_one_coin": {
+                "mean": 341063,
+                "std": 46654,
+                "min": 230874,
+                "max": 420088,
+                "count": 56
+            },
+            "remove_liquidity": {
+                "mean": 196285,
+                "std": 7430,
+                "min": 182054,
+                "max": 212741,
+                "count": 62
+            },
+            "balances": {
+                "mean": 6099,
+                "std": 441,
+                "min": 3678,
+                "max": 6178,
+                "count": 32
+            },
+            "coins": {
+                "mean": 1172,
+                "std": 0,
+                "min": 1172,
+                "max": 1172,
+                "count": 1
+            },
+            "get_dy": {
+                "mean": 48747,
+                "std": 5773,
+                "min": 45412,
+                "max": 55414,
+                "count": 3
+            }
+        },
+        "bimodal": {
+            "exchange": {
+                "min": 168874,
+                "max": 446685,
+                "mean_1": 378810,
+                "mean_2": 275872,
+                "std_1": 20319,
+                "std_2": 26975,
+                "count": 1702
+            },
+            "add_liquidity": {
+                "min": 222978,
+                "max": 473540,
+                "mean_1": 457749,
+                "mean_2": 368093,
+                "std_1": 5008,
+                "std_2": 37927,
+                "count": 310
+            },
+            "remove_liquidity_one_coin": {
+                "min": 230874,
+                "max": 420088,
+                "mean_1": 251552,
+                "mean_2": 355801,
+                "std_1": 12220,
+                "std_2": 21262,
+                "count": 56
+            },
+            "remove_liquidity": {
+                "min": 182054,
+                "max": 212741,
+                "mean_1": 199701,
+                "mean_2": 182053,
+                "std_1": 1882,
+                "std_2": 0,
+                "count": 62
+            },
+            "balances": {
+                "min": 3678,
+                "max": 6178,
+                "mean_1": 6177,
+                "mean_2": 3677,
+                "std_1": 0,
+                "std_2": 0,
+                "count": 32
+            },
+            "get_dy": {
+                "min": 45412,
+                "max": 55414,
+                "mean_1": 55413,
+                "mean_2": 45413,
+                "std_1": 0,
+                "std_2": 1,
+                "count": 3
+            }
+        },
+        "min_block": 14039262,
+        "max_block": 15387019
+    },
+    "0xd8C49617e6A2C7584Ddbeab652368ee84954BF5c": {
+        "univariate": {
+            "exchange": {
+                "mean": 237428,
+                "std": 33490,
+                "min": 200558,
+                "max": 308620,
+                "count": 15
+            },
+            "add_liquidity": {
+                "mean": 242743,
+                "std": 41662,
+                "min": 196520,
+                "max": 277401,
+                "count": 3
+            },
+            "balances": {
+                "mean": 3678,
+                "std": 0,
+                "min": 3678,
+                "max": 3678,
+                "count": 1
+            },
+            "remove_liquidity": {
+                "mean": 93294,
+                "std": 0,
+                "min": 93294,
+                "max": 93294,
+                "count": 1
+            }
+        },
+        "bimodal": {
+            "exchange": {
+                "min": 200558,
+                "max": 308620,
+                "mean_1": 222805,
+                "mean_2": 295912,
+                "std_1": 10369,
+                "std_2": 6994,
+                "count": 15
+            },
+            "add_liquidity": {
+                "min": 196520,
+                "max": 277401,
+                "mean_1": 265855,
+                "mean_2": 196519,
+                "std_1": 8163,
+                "std_2": 0,
+                "count": 3
+            }
+        },
+        "min_block": 14205182,
+        "max_block": 15246583
+    },
+    "0x6Df0D77F0496CE44e72D695943950D8641fcA5Cf": {
+        "univariate": {
+            "exchange": {
+                "mean": 337388,
+                "std": 65873,
+                "min": 143199,
+                "max": 441694,
+                "count": 252
+            },
+            "coins": {
+                "mean": 3172,
+                "std": 0,
+                "min": 3172,
+                "max": 3172,
+                "count": 4
+            },
+            "lp_price": {
+                "mean": 19285,
+                "std": 6575,
+                "min": 13458,
+                "max": 25442,
+                "count": 4
+            },
+            "price_oracle": {
+                "mean": 7888,
+                "std": 6582,
+                "min": 2204,
+                "max": 14188,
+                "count": 4
+            },
+            "remove_liquidity_one_coin": {
+                "mean": 349041,
+                "std": 37670,
+                "min": 276068,
+                "max": 394956,
+                "count": 11
+            },
+            "remove_liquidity": {
+                "mean": 123544,
+                "std": 11219,
+                "min": 103495,
+                "max": 150695,
+                "count": 20
+            },
+            "get_dy": {
+                "mean": 67137,
+                "std": 1482,
+                "min": 65426,
+                "max": 67993,
+                "count": 3
+            },
+            "add_liquidity": {
+                "mean": 344854,
+                "std": 66743,
+                "min": 205921,
+                "max": 443819,
+                "count": 27
+            },
+            "exchange_underlying": {
+                "mean": 410487,
+                "std": 407,
+                "min": 410199,
+                "max": 410775,
+                "count": 2
+            }
+        },
+        "bimodal": {
+            "exchange": {
+                "min": 143199,
+                "max": 441694,
+                "mean_1": 414604,
+                "mean_2": 308065,
+                "std_1": 9948,
+                "std_2": 37176,
+                "count": 252
+            },
+            "coins": {
+                "min": 3172,
+                "max": 3172,
+                "mean_1": 3171,
+                "mean_2": 0,
+                "std_1": 0,
+                "std_2": 0,
+                "count": 4
+            },
+            "lp_price": {
+                "min": 13458,
+                "max": 25442,
+                "mean_1": 24968,
+                "mean_2": 13600,
+                "std_1": 334,
+                "std_2": 101,
+                "count": 4
+            },
+            "price_oracle": {
+                "min": 2204,
+                "max": 14188,
+                "mean_1": 2203,
+                "mean_2": 13571,
+                "std_1": 0,
+                "std_2": 435,
+                "count": 4
+            },
+            "remove_liquidity_one_coin": {
+                "min": 276068,
+                "max": 394956,
+                "mean_1": 382645,
+                "mean_2": 323127,
+                "std_1": 4936,
+                "std_2": 18773,
+                "count": 11
+            },
+            "remove_liquidity": {
+                "min": 103495,
+                "max": 150695,
+                "mean_1": 122115,
+                "mean_2": 150694,
+                "std_1": 6520,
+                "std_2": 0,
+                "count": 20
+            },
+            "get_dy": {
+                "min": 65426,
+                "max": 67993,
+                "mean_1": 65425,
+                "mean_2": 67992,
+                "std_1": 0,
+                "std_2": 0,
+                "count": 3
+            },
+            "add_liquidity": {
+                "min": 205921,
+                "max": 443819,
+                "mean_1": 311597,
+                "mean_2": 428818,
+                "std_1": 32066,
+                "std_2": 6530,
+                "count": 27
+            },
+            "exchange_underlying": {
+                "min": 410199,
+                "max": 410775,
+                "mean_1": 410198,
+                "mean_2": 410774,
+                "std_1": 0,
+                "std_2": 0,
+                "count": 2
+            }
+        },
+        "min_block": 14389649,
+        "max_block": 15372144
+    },
+    "0xE07BDe9Eb53DEFfa979daE36882014B758111a78": {
+        "univariate": {
+            "remove_liquidity": {
+                "mean": 144135,
+                "std": 11734,
+                "min": 130700,
+                "max": 164900,
+                "count": 28
+            },
+            "exchange": {
+                "mean": 286054,
+                "std": 79556,
+                "min": 119330,
+                "max": 446263,
+                "count": 105
+            },
+            "add_liquidity": {
+                "mean": 314524,
+                "std": 69180,
+                "min": 208127,
+                "max": 460800,
+                "count": 68
+            },
+            "remove_liquidity_one_coin": {
+                "mean": 313039,
+                "std": 49108,
+                "min": 252003,
+                "max": 402139,
+                "count": 29
+            },
+            "balances": {
+                "mean": 6178,
+                "std": 0,
+                "min": 6178,
+                "max": 6178,
+                "count": 1
+            }
+        },
+        "bimodal": {
+            "remove_liquidity": {
+                "min": 130700,
+                "max": 164900,
+                "mean_1": 151599,
+                "mean_2": 130699,
+                "std_1": 5026,
+                "std_2": 0,
+                "count": 28
+            },
+            "exchange": {
+                "min": 119330,
+                "max": 446263,
+                "mean_1": 203845,
+                "mean_2": 331178,
+                "std_1": 28147,
+                "std_2": 39334,
+                "count": 105
+            },
+            "add_liquidity": {
+                "min": 208127,
+                "max": 460800,
+                "mean_1": 268078,
+                "mean_2": 388987,
+                "std_1": 18903,
+                "std_2": 32608,
+                "count": 68
+            },
+            "remove_liquidity_one_coin": {
+                "min": 252003,
+                "max": 402139,
+                "mean_1": 274847,
+                "mean_2": 366484,
+                "std_1": 8409,
+                "std_2": 15674,
+                "count": 29
+            }
+        },
+        "min_block": 14172194,
+        "max_block": 15386234
+    },
+    "0xEB0265938c1190Ab4E3E1f6583bC956dF47C0F93": {
+        "univariate": {
+            "exchange": {
+                "mean": 353925,
+                "std": 68411,
+                "min": 165834,
+                "max": 455032,
+                "count": 167
+            },
+            "add_liquidity": {
+                "mean": 369270,
+                "std": 86896,
+                "min": 207959,
+                "max": 455839,
+                "count": 11
+            },
+            "remove_liquidity": {
+                "mean": 126852,
+                "std": 12111,
+                "min": 103495,
+                "max": 133595,
+                "count": 7
+            },
+            "balances": {
+                "mean": 5344,
+                "std": 1290,
+                "min": 3678,
+                "max": 6178,
+                "count": 6
+            },
+            "remove_liquidity_one_coin": {
+                "mean": 380543,
+                "std": 0,
+                "min": 380543,
+                "max": 380543,
+                "count": 1
+            }
+        },
+        "bimodal": {
+            "exchange": {
+                "min": 165834,
+                "max": 455032,
+                "mean_1": 420931,
+                "mean_2": 306113,
+                "std_1": 7810,
+                "std_2": 34604,
+                "count": 167
+            },
+            "add_liquidity": {
+                "min": 207959,
+                "max": 455839,
+                "mean_1": 426977,
+                "mean_2": 276340,
+                "std_1": 19100,
+                "std_2": 37048,
+                "count": 11
+            },
+            "remove_liquidity": {
+                "min": 103495,
+                "max": 133595,
+                "mean_1": 133594,
+                "mean_2": 109995,
+                "std_1": 0,
+                "std_2": 4596,
+                "count": 7
+            },
+            "balances": {
+                "min": 3678,
+                "max": 6178,
+                "mean_1": 6177,
+                "mean_2": 3677,
+                "std_1": 0,
+                "std_2": 0,
+                "count": 6
+            }
+        },
+        "min_block": 14389689,
+        "max_block": 15376126
+    },
+    "0x5b692073F141C31384faE55856CfB6CBfFE91E60": {
+        "univariate": {
+            "exchange": {
+                "mean": 331369,
+                "std": 77208,
+                "min": 134663,
+                "max": 439326,
+                "count": 116
+            },
+            "remove_liquidity": {
+                "mean": 136035,
+                "std": 14106,
+                "min": 116495,
+                "max": 150695,
+                "count": 10
+            },
+            "exchange_underlying": {
+                "mean": 319509,
+                "std": 0,
+                "min": 319509,
+                "max": 319509,
+                "count": 1
+            },
+            "remove_liquidity_one_coin": {
+                "mean": 270860,
+                "std": 37539,
+                "min": 244305,
+                "max": 345389,
+                "count": 6
+            },
+            "add_liquidity": {
+                "mean": 312056,
+                "std": 53758,
+                "min": 221646,
+                "max": 413608,
+                "count": 19
+            }
+        },
+        "bimodal": {
+            "exchange": {
+                "min": 134663,
+                "max": 439326,
+                "mean_1": 420349,
+                "mean_2": 290352,
+                "std_1": 8803,
+                "std_2": 40189,
+                "count": 116
+            },
+            "remove_liquidity": {
+                "min": 116495,
+                "max": 150695,
+                "mean_1": 142191,
+                "mean_2": 118267,
+                "std_1": 6725,
+                "std_2": 2213,
+                "count": 10
+            },
+            "remove_liquidity_one_coin": {
+                "min": 244305,
+                "max": 345389,
+                "mean_1": 255954,
+                "mean_2": 345388,
+                "std_1": 6170,
+                "std_2": 0,
+                "count": 6
+            },
+            "add_liquidity": {
+                "min": 221646,
+                "max": 413608,
+                "mean_1": 291030,
+                "mean_2": 396916,
+                "std_1": 23680,
+                "std_2": 11742,
+                "count": 19
+            }
+        },
+        "min_block": 14389632,
+        "max_block": 15376039
+    },
+    "0x838af967537350D2C44ABB8c010E49E32673ab94": {
+        "univariate": {
+            "exchange": {
+                "mean": 285009,
+                "std": 52059,
+                "min": 147882,
+                "max": 413549,
+                "count": 572
+            },
+            "add_liquidity": {
+                "mean": 292430,
+                "std": 55042,
+                "min": 178107,
+                "max": 387539,
+                "count": 98
+            },
+            "remove_liquidity_one_coin": {
+                "mean": 288159,
+                "std": 49630,
+                "min": 197569,
+                "max": 344872,
+                "count": 19
+            },
+            "balances": {
+                "mean": 3678,
+                "std": 0,
+                "min": 3678,
+                "max": 3678,
+                "count": 19
+            },
+            "remove_liquidity": {
+                "mean": 93655,
+                "std": 0,
+                "min": 93655,
+                "max": 93655,
+                "count": 8
+            },
+            "exchange_underlying": {
+                "mean": 300192,
+                "std": 38213,
+                "min": 259685,
+                "max": 335599,
+                "count": 3
+            }
+        },
+        "bimodal": {
+            "exchange": {
+                "min": 147882,
+                "max": 413549,
+                "mean_1": 343201,
+                "mean_2": 248680,
+                "std_1": 14711,
+                "std_2": 18579,
+                "count": 572
+            },
+            "add_liquidity": {
+                "min": 178107,
+                "max": 387539,
+                "mean_1": 246544,
+                "mean_2": 340884,
+                "std_1": 21310,
+                "std_2": 17817,
+                "count": 98
+            },
+            "remove_liquidity_one_coin": {
+                "min": 197569,
+                "max": 344872,
+                "mean_1": 208388,
+                "mean_2": 309283,
+                "std_1": 6420,
+                "std_2": 19979,
+                "count": 19
+            },
+            "balances": {
+                "min": 3678,
+                "max": 3678,
+                "mean_1": 3677,
+                "mean_2": 0,
+                "std_1": 0,
+                "std_2": 0,
+                "count": 19
+            },
+            "remove_liquidity": {
+                "min": 93655,
+                "max": 93655,
+                "mean_1": 93654,
+                "mean_2": 0,
+                "std_1": 0,
+                "std_2": 0,
+                "count": 8
+            },
+            "exchange_underlying": {
+                "min": 259685,
+                "max": 335599,
+                "mean_1": 320445,
+                "mean_2": 259684,
+                "std_1": 10715,
+                "std_2": 0,
+                "count": 3
+            }
+        },
+        "min_block": 14535514,
+        "max_block": 15385822
+    },
+    "0xD4e2fdC354c5DFfb865798Ca98c2b9d5382F687C": {
+        "univariate": {
+            "exchange": {
+                "mean": 302666,
+                "std": 37366,
+                "min": 248498,
+                "max": 333322,
+                "count": 4
+            },
+            "add_liquidity": {
+                "mean": 388435,
+                "std": 0,
+                "min": 388435,
+                "max": 388435,
+                "count": 1
+            },
+            "balances": {
+                "mean": 3678,
+                "std": 0,
+                "min": 3678,
+                "max": 3678,
+                "count": 1
+            }
+        },
+        "bimodal": {
+            "exchange": {
+                "min": 248498,
+                "max": 333322,
+                "mean_1": 320722,
+                "mean_2": 248497,
+                "std_1": 6788,
+                "std_2": 0,
+                "count": 4
+            }
+        },
+        "min_block": 15338918,
+        "max_block": 15385829
+    },
+    "0xbfCa1a72edd92FFf61a8c88f61D4e64E99232b4b": {
+        "univariate": {
+            "add_liquidity": {
+                "mean": 364162,
+                "std": 0,
+                "min": 364162,
+                "max": 364162,
+                "count": 1
+            },
+            "remove_liquidity": {
+                "mean": 134560,
+                "std": 0,
+                "min": 134560,
+                "max": 134560,
+                "count": 2
+            }
+        },
+        "bimodal": {
+            "remove_liquidity": {
+                "min": 134560,
+                "max": 134560,
+                "mean_1": 134559,
+                "mean_2": 0,
+                "std_1": 0,
+                "std_2": 0,
+                "count": 2
+            }
+        },
+        "min_block": 14800724,
+        "max_block": 14803378
+    },
+    "0xD0a1D2a9350824516ae8729b8311557BA7E55BFF": {
+        "univariate": {
+            "exchange": {
+                "mean": 242288,
+                "std": 21764,
+                "min": 187105,
+                "max": 346758,
+                "count": 276
+            },
+            "add_liquidity": {
+                "mean": 207428,
+                "std": 48925,
+                "min": 159863,
+                "max": 257610,
+                "count": 3
+            },
+            "exchange_underlying": {
+                "mean": 253020,
+                "std": 0,
+                "min": 253020,
+                "max": 253020,
+                "count": 1
+            }
+        },
+        "bimodal": {
+            "exchange": {
+                "min": 187105,
+                "max": 346758,
+                "mean_1": 229891,
+                "mean_2": 245602,
+                "std_1": 13923,
+                "std_2": 14872,
+                "count": 276
+            },
+            "add_liquidity": {
+                "min": 159863,
+                "max": 257610,
+                "mean_1": 257609,
+                "mean_2": 182337,
+                "std_1": 0,
+                "std_2": 15891,
+                "count": 3
+            }
+        },
+        "min_block": 14580152,
+        "max_block": 15384719
+    },
+    "0x4535913573D299A6372ca43b90aA6Be1CF68f779": {
+        "univariate": {
+            "exchange": {
+                "mean": 311226,
+                "std": 59975,
+                "min": 139685,
+                "max": 413630,
+                "count": 443
+            },
+            "balances": {
+                "mean": 4233,
+                "std": 1102,
+                "min": 3678,
+                "max": 6178,
+                "count": 9
+            },
+            "remove_liquidity_one_coin": {
+                "mean": 295379,
+                "std": 65740,
+                "min": 219492,
+                "max": 334960,
+                "count": 3
+            },
+            "add_liquidity": {
+                "mean": 296990,
+                "std": 69620,
+                "min": 215087,
+                "max": 402828,
+                "count": 9
+            },
+            "remove_liquidity": {
+                "mean": 123955,
+                "std": 0,
+                "min": 123955,
+                "max": 123955,
+                "count": 1
+            }
+        },
+        "bimodal": {
+            "exchange": {
+                "min": 139685,
+                "max": 413630,
+                "mean_1": 370569,
+                "mean_2": 263618,
+                "std_1": 13669,
+                "std_2": 23200,
+                "count": 443
+            },
+            "balances": {
+                "min": 3678,
+                "max": 6178,
+                "mean_1": 3677,
+                "mean_2": 6177,
+                "std_1": 0,
+                "std_2": 0,
+                "count": 9
+            },
+            "remove_liquidity_one_coin": {
+                "min": 219492,
+                "max": 334960,
+                "mean_1": 219491,
+                "mean_2": 333322,
+                "std_1": 0,
+                "std_2": 1157,
+                "count": 3
+            },
+            "add_liquidity": {
+                "min": 215087,
+                "max": 402828,
+                "mean_1": 365943,
+                "mean_2": 241806,
+                "std_1": 21226,
+                "std_2": 9616,
+                "count": 9
+            }
+        },
+        "min_block": 14631772,
+        "max_block": 15384350
+    },
+    "0x98638FAcf9a3865cd033F36548713183f6996122": {
+        "univariate": {
+            "exchange": {
+                "mean": 237188,
+                "std": 27680,
+                "min": 143138,
+                "max": 352611,
+                "count": 3909
+            },
+            "balances": {
+                "mean": 3621,
+                "std": 0,
+                "min": 3621,
+                "max": 3621,
+                "count": 340
+            },
+            "add_liquidity": {
+                "mean": 230836,
+                "std": 20988,
+                "min": 183353,
+                "max": 296145,
+                "count": 185
+            },
+            "remove_liquidity_one_coin": {
+                "mean": 229045,
+                "std": 24116,
+                "min": 194914,
+                "max": 272695,
+                "count": 77
+            },
+            "get_dy": {
+                "mean": 45152,
+                "std": 4501,
+                "min": 32812,
+                "max": 52836,
+                "count": 93
+            },
+            "remove_liquidity": {
+                "mean": 103800,
+                "std": 25480,
+                "min": 81376,
+                "max": 150612,
+                "count": 34
+            },
+            "price_oracle": {
+                "mean": 18643,
+                "std": 6469,
+                "min": 4820,
+                "max": 21700,
+                "count": 12
+            }
+        },
+        "bimodal": {
+            "exchange": {
+                "min": 143138,
+                "max": 352611,
+                "mean_1": 216468,
+                "mean_2": 257604,
+                "std_1": 13995,
+                "std_2": 12144,
+                "count": 3909
+            },
+            "balances": {
+                "min": 3621,
+                "max": 3621,
+                "mean_1": 3621,
+                "mean_2": 0,
+                "std_1": 0,
+                "std_2": 0,
+                "count": 340
+            },
+            "add_liquidity": {
+                "min": 183353,
+                "max": 296145,
+                "mean_1": 217117,
+                "mean_2": 251243,
+                "std_1": 9291,
+                "std_2": 8264,
+                "count": 185
+            },
+            "remove_liquidity_one_coin": {
+                "min": 194914,
+                "max": 272695,
+                "mean_1": 214259,
+                "mean_2": 261795,
+                "std_1": 6756,
+                "std_2": 6576,
+                "count": 77
+            },
+            "get_dy": {
+                "min": 32812,
+                "max": 52836,
+                "mean_1": 47784,
+                "mean_2": 42825,
+                "std_1": 1303,
+                "std_2": 3406,
+                "count": 93
+            },
+            "remove_liquidity": {
+                "min": 81376,
+                "max": 150612,
+                "mean_1": 86039,
+                "mean_2": 136361,
+                "std_1": 5385,
+                "std_2": 4506,
+                "count": 34
+            },
+            "price_oracle": {
+                "min": 4820,
+                "max": 21700,
+                "mean_1": 21408,
+                "mean_2": 4819,
+                "std_1": 291,
+                "std_2": 0,
+                "count": 12
+            }
+        },
+        "min_block": 13931831,
+        "max_block": 15385328
+    },
+    "0x383aD525211B8A1A9c13532CC021773052b2F4f8": {
+        "univariate": {
+            "exchange": {
+                "mean": 265370,
+                "std": 25165,
+                "min": 202116,
+                "max": 305538,
+                "count": 35
+            },
+            "balances": {
+                "mean": 3678,
+                "std": 0,
+                "min": 3678,
+                "max": 3678,
+                "count": 7
+            },
+            "add_liquidity": {
+                "mean": 239125,
+                "std": 52265,
+                "min": 202168,
+                "max": 276082,
+                "count": 2
+            }
+        },
+        "bimodal": {
+            "exchange": {
+                "min": 202116,
+                "max": 305538,
+                "mean_1": 280862,
+                "mean_2": 244985,
+                "std_1": 11500,
+                "std_2": 13138,
+                "count": 35
+            },
+            "balances": {
+                "min": 3678,
+                "max": 3678,
+                "mean_1": 3677,
+                "mean_2": 0,
+                "std_1": 0,
+                "std_2": 0,
+                "count": 7
+            },
+            "add_liquidity": {
+                "min": 202168,
+                "max": 276082,
+                "mean_1": 276081,
+                "mean_2": 202167,
+                "std_1": 0,
+                "std_2": 0,
+                "count": 2
+            }
+        },
+        "min_block": 15251082,
+        "max_block": 15377982
+    },
+    "0x6ec38b3228251a0C5D491Faf66858e2E23d7728B": {
+        "univariate": {
+            "exchange": {
+                "mean": 298830,
+                "std": 63894,
+                "min": 145405,
+                "max": 409651,
+                "count": 1317
+            },
+            "add_liquidity": {
+                "mean": 298479,
+                "std": 49313,
+                "min": 196798,
+                "max": 410006,
+                "count": 171
+            },
+            "balances": {
+                "mean": 4042,
+                "std": 884,
+                "min": 3678,
+                "max": 6178,
+                "count": 151
+            },
+            "remove_liquidity": {
+                "mean": 103067,
+                "std": 16225,
+                "min": 93654,
+                "max": 145904,
+                "count": 11
+            },
+            "remove_liquidity_one_coin": {
+                "mean": 295938,
+                "std": 44614,
+                "min": 204798,
+                "max": 344322,
+                "count": 50
+            },
+            "get_dy": {
+                "mean": 44137,
+                "std": 13860,
+                "min": 22912,
+                "max": 57978,
+                "count": 19
+            },
+            "coins": {
+                "mean": 1172,
+                "std": 0,
+                "min": 1172,
+                "max": 1172,
+                "count": 1
+            }
+        },
+        "bimodal": {
+            "exchange": {
+                "min": 145405,
+                "max": 409651,
+                "mean_1": 249873,
+                "mean_2": 360404,
+                "std_1": 27937,
+                "std_2": 14850,
+                "count": 1317
+            },
+            "add_liquidity": {
+                "min": 196798,
+                "max": 410006,
+                "mean_1": 325634,
+                "mean_2": 233734,
+                "std_1": 19016,
+                "std_2": 15925,
+                "count": 171
+            },
+            "balances": {
+                "min": 3678,
+                "max": 6178,
+                "mean_1": 3678,
+                "mean_2": 6177,
+                "std_1": 0,
+                "std_2": 0,
+                "count": 151
+            },
+            "remove_liquidity": {
+                "min": 93654,
+                "max": 145904,
+                "mean_1": 98784,
+                "mean_2": 145903,
+                "std_1": 5541,
+                "std_2": 0,
+                "count": 11
+            },
+            "remove_liquidity_one_coin": {
+                "min": 204798,
+                "max": 344322,
+                "mean_1": 231546,
+                "mean_2": 322015,
+                "std_1": 19238,
+                "std_2": 6391,
+                "count": 50
+            },
+            "get_dy": {
+                "min": 22912,
+                "max": 57978,
+                "mean_1": 26873,
+                "mean_2": 54207,
+                "std_1": 2087,
+                "std_2": 1975,
+                "count": 19
+            }
+        },
+        "min_block": 14629988,
+        "max_block": 15387407
+    },
+    "0x98a7F18d4E56Cfe84E3D081B40001B3d5bD3eB8B": {
+        "univariate": {
+            "get_dy": {
+                "mean": 52422,
+                "std": 10047,
+                "min": 30449,
+                "max": 66862,
+                "count": 132
+            },
+            "exchange": {
+                "mean": 333940,
+                "std": 89670,
+                "min": 141405,
+                "max": 482481,
+                "count": 1658
+            },
+            "remove_liquidity": {
+                "mean": 143385,
+                "std": 9027,
+                "min": 118813,
+                "max": 153013,
+                "count": 101
+            },
+            "add_liquidity": {
+                "mean": 304684,
+                "std": 92513,
+                "min": 177707,
+                "max": 456072,
+                "count": 384
+            },
+            "coins": {
+                "mean": 229,
+                "std": 0,
+                "min": 229,
+                "max": 229,
+                "count": 2
+            },
+            "claim_admin_fees": {
+                "mean": 137856,
+                "std": 10381,
+                "min": 116408,
+                "max": 163866,
+                "count": 36
+            },
+            "remove_liquidity_one_coin": {
+                "mean": 327544,
+                "std": 75980,
+                "min": 184458,
+                "max": 394016,
+                "count": 206
+            },
+            "price_oracle": {
+                "mean": 2910,
+                "std": 0,
+                "min": 2910,
+                "max": 2910,
+                "count": 79
+            },
+            "balances": {
+                "mean": 3498,
+                "std": 0,
+                "min": 3498,
+                "max": 3498,
+                "count": 4
+            },
+            "apply_new_parameters": {
+                "mean": 65839,
+                "std": 0,
+                "min": 65839,
+                "max": 65839,
+                "count": 3
+            },
+            "commit_new_parameters": {
+                "mean": 92045,
+                "std": 78808,
+                "min": 46545,
+                "max": 183045,
+                "count": 3
+            }
+        },
+        "bimodal": {
+            "get_dy": {
+                "min": 30449,
+                "max": 66862,
+                "mean_1": 49136,
+                "mean_2": 64215,
+                "std_1": 6267,
+                "std_2": 35,
+                "count": 132
+            },
+            "exchange": {
+                "min": 141405,
+                "max": 482481,
+                "mean_1": 219199,
+                "mean_2": 389753,
+                "std_1": 28128,
+                "std_2": 28774,
+                "count": 1658
+            },
+            "remove_liquidity": {
+                "min": 118813,
+                "max": 153013,
+                "mean_1": 135506,
+                "mean_2": 149156,
+                "std_1": 5683,
+                "std_2": 2616,
+                "count": 101
+            },
+            "add_liquidity": {
+                "min": 177707,
+                "max": 456072,
+                "mean_1": 204509,
+                "mean_2": 359654,
+                "std_1": 5890,
+                "std_2": 48240,
+                "count": 384
+            },
+            "coins": {
+                "min": 229,
+                "max": 229,
+                "mean_1": 228,
+                "mean_2": 0,
+                "std_1": 0,
+                "std_2": 0,
+                "count": 2
+            },
+            "claim_admin_fees": {
+                "min": 116408,
+                "max": 163866,
+                "mean_1": 141636,
+                "mean_2": 122287,
+                "std_1": 5159,
+                "std_2": 2814,
+                "count": 36
+            },
+            "remove_liquidity_one_coin": {
+                "min": 184458,
+                "max": 394016,
+                "mean_1": 377177,
+                "mean_2": 220318,
+                "std_1": 9391,
+                "std_2": 21858,
+                "count": 206
+            },
+            "price_oracle": {
+                "min": 2910,
+                "max": 2910,
+                "mean_1": 2910,
+                "mean_2": 0,
+                "std_1": 0,
+                "std_2": 0,
+                "count": 79
+            },
+            "balances": {
+                "min": 3498,
+                "max": 3498,
+                "mean_1": 3497,
+                "mean_2": 0,
+                "std_1": 0,
+                "std_2": 0,
+                "count": 4
+            },
+            "apply_new_parameters": {
+                "min": 65839,
+                "max": 65839,
+                "mean_1": 65838,
+                "mean_2": 0,
+                "std_1": 0,
+                "std_2": 0,
+                "count": 3
+            },
+            "commit_new_parameters": {
+                "min": 46545,
+                "max": 183045,
+                "mean_1": 183044,
+                "mean_2": 46544,
+                "std_1": 0,
+                "std_2": 0,
+                "count": 3
+            }
+        },
+        "min_block": 13530726,
+        "max_block": 15387391
+    },
+    "0x7E050cf658777cc1Da4a4508E79d71859044B60E": {
+        "univariate": {
+            "exchange": {
+                "mean": 297910,
+                "std": 58154,
+                "min": 163285,
+                "max": 415211,
+                "count": 1338
+            },
+            "balances": {
+                "mean": 3743,
+                "std": 401,
+                "min": 3678,
+                "max": 6178,
+                "count": 190
+            },
+            "exchange_underlying": {
+                "mean": 308425,
+                "std": 57044,
+                "min": 237236,
+                "max": 370927,
+                "count": 4
+            },
+            "remove_liquidity": {
+                "mean": 114139,
+                "std": 17291,
+                "min": 98790,
+                "max": 151040,
+                "count": 8
+            },
+            "get_dy": {
+                "mean": 45181,
+                "std": 10588,
+                "min": 32874,
+                "max": 57867,
+                "count": 12
+            },
+            "coins": {
+                "mean": 2791,
+                "std": 804,
+                "min": 1172,
+                "max": 3172,
+                "count": 21
+            },
+            "lp_price": {
+                "mean": 26920,
+                "std": 3897,
+                "min": 16890,
+                "max": 28874,
+                "count": 17
+            },
+            "remove_liquidity_one_coin": {
+                "mean": 251478,
+                "std": 43994,
+                "min": 181778,
+                "max": 324230,
+                "count": 26
+            },
+            "add_liquidity": {
+                "mean": 287717,
+                "std": 50173,
+                "min": 212587,
+                "max": 372478,
+                "count": 19
+            }
+        },
+        "bimodal": {
+            "exchange": {
+                "min": 163285,
+                "max": 415211,
+                "mean_1": 267718,
+                "mean_2": 370687,
+                "std_1": 27361,
+                "std_2": 14533,
+                "count": 1338
+            },
+            "balances": {
+                "min": 3678,
+                "max": 6178,
+                "mean_1": 3678,
+                "mean_2": 6177,
+                "std_1": 0,
+                "std_2": 0,
+                "count": 190
+            },
+            "exchange_underlying": {
+                "min": 237236,
+                "max": 370927,
+                "mean_1": 269242,
+                "mean_2": 351631,
+                "std_1": 22695,
+                "std_2": 14765,
+                "count": 4
+            },
+            "remove_liquidity": {
+                "min": 98790,
+                "max": 151040,
+                "mean_1": 108868,
+                "mean_2": 151039,
+                "std_1": 6191,
+                "std_2": 0,
+                "count": 8
+            },
+            "get_dy": {
+                "min": 32874,
+                "max": 57867,
+                "mean_1": 53257,
+                "mean_2": 33873,
+                "std_1": 3046,
+                "std_2": 865,
+                "count": 12
+            },
+            "coins": {
+                "min": 1172,
+                "max": 3172,
+                "mean_1": 3171,
+                "mean_2": 1171,
+                "std_1": 0,
+                "std_2": 0,
+                "count": 21
+            },
+            "lp_price": {
+                "min": 16890,
+                "max": 28874,
+                "mean_1": 28257,
+                "mean_2": 16889,
+                "std_1": 706,
+                "std_2": 0,
+                "count": 17
+            },
+            "remove_liquidity_one_coin": {
+                "min": 181778,
+                "max": 324230,
+                "mean_1": 274048,
+                "mean_2": 189777,
+                "std_1": 17756,
+                "std_2": 3559,
+                "count": 26
+            },
+            "add_liquidity": {
+                "min": 212587,
+                "max": 372478,
+                "mean_1": 260752,
+                "mean_2": 353232,
+                "std_1": 19114,
+                "std_2": 13131,
+                "count": 19
+            }
+        },
+        "min_block": 14528321,
+        "max_block": 15388902
+    },
+    "0xc58fDB8A50AB921A73535656A7c69387Dd863ff6": {
+        "univariate": {
+            "exchange": {
+                "mean": 272835,
+                "std": 60746,
+                "min": 189381,
+                "max": 350597,
+                "count": 8
+            },
+            "add_liquidity": {
+                "mean": 298438,
+                "std": 0,
+                "min": 298438,
+                "max": 298438,
+                "count": 1
+            },
+            "remove_liquidity": {
+                "mean": 103138,
+                "std": 0,
+                "min": 103138,
+                "max": 103138,
+                "count": 1
+            }
+        },
+        "bimodal": {
+            "exchange": {
+                "min": 189381,
+                "max": 350597,
+                "mean_1": 339816,
+                "mean_2": 232740,
+                "std_1": 6145,
+                "std_2": 20288,
+                "count": 8
+            }
+        },
+        "min_block": 15320165,
+        "max_block": 15381847
+    },
+    "0x7F2aF2c7BFDAD063fF01DcEc077a216d95A0A944": {
+        "univariate": {
+            "add_liquidity": {
+                "mean": 327223,
+                "std": 0,
+                "min": 327223,
+                "max": 327223,
+                "count": 1
+            },
+            "exchange": {
+                "mean": 243063,
+                "std": 25194,
+                "min": 225248,
+                "max": 260879,
+                "count": 2
+            },
+            "remove_liquidity": {
+                "mean": 117460,
+                "std": 0,
+                "min": 117460,
+                "max": 117460,
+                "count": 1
+            }
+        },
+        "bimodal": {
+            "exchange": {
+                "min": 225248,
+                "max": 260879,
+                "mean_1": 260878,
+                "mean_2": 225247,
+                "std_1": 0,
+                "std_2": 0,
+                "count": 2
+            }
+        },
+        "min_block": 14803374,
+        "max_block": 14992895
+    },
+    "0x80aa1a80a30055DAA084E599836532F3e58c95E2": {
+        "univariate": {
+            "exchange": {
+                "mean": 346673,
+                "std": 55302,
+                "min": 165491,
+                "max": 428283,
+                "count": 633
+            },
+            "remove_liquidity_one_coin": {
+                "mean": 321964,
+                "std": 54128,
+                "min": 236663,
+                "max": 374141,
+                "count": 12
+            },
+            "calc_token_amount": {
+                "mean": 74341,
+                "std": 8185,
+                "min": 54576,
+                "max": 82991,
+                "count": 35
+            },
+            "add_liquidity": {
+                "mean": 255007,
+                "std": 61790,
+                "min": 151546,
+                "max": 408449,
+                "count": 48
+            },
+            "get_virtual_price": {
+                "mean": 5095,
+                "std": 180,
+                "min": 4789,
+                "max": 5198,
+                "count": 24
+            },
+            "token": {
+                "mean": 1101,
+                "std": 0,
+                "min": 1101,
+                "max": 1101,
+                "count": 11
+            },
+            "balances": {
+                "mean": 1678,
+                "std": 0,
+                "min": 1678,
+                "max": 1678,
+                "count": 11
+            },
+            "get_dy": {
+                "mean": 47358,
+                "std": 8299,
+                "min": 35417,
+                "max": 67929,
+                "count": 13
+            },
+            "remove_liquidity": {
+                "mean": 132614,
+                "std": 9872,
+                "min": 124064,
+                "max": 141164,
+                "count": 4
+            },
+            "exchange_underlying": {
+                "mean": 256805,
+                "std": 31905,
+                "min": 225422,
+                "max": 289208,
+                "count": 3
+            }
+        },
+        "bimodal": {
+            "exchange": {
+                "min": 165491,
+                "max": 428283,
+                "mean_1": 292962,
+                "mean_2": 393548,
+                "std_1": 21202,
+                "std_2": 10458,
+                "count": 633
+            },
+            "remove_liquidity_one_coin": {
+                "min": 236663,
+                "max": 374141,
+                "mean_1": 364332,
+                "mean_2": 262648,
+                "std_1": 4093,
+                "std_2": 13552,
+                "count": 12
+            },
+            "calc_token_amount": {
+                "min": 54576,
+                "max": 82991,
+                "mean_1": 79696,
+                "mean_2": 68291,
+                "std_1": 2117,
+                "std_2": 5453,
+                "count": 35
+            },
+            "add_liquidity": {
+                "min": 151546,
+                "max": 408449,
+                "mean_1": 289953,
+                "mean_2": 180252,
+                "std_1": 27808,
+                "std_2": 10649,
+                "count": 48
+            },
+            "get_virtual_price": {
+                "min": 4789,
+                "max": 5198,
+                "mean_1": 5197,
+                "mean_2": 4788,
+                "std_1": 0,
+                "std_2": 0,
+                "count": 24
+            },
+            "token": {
+                "min": 1101,
+                "max": 1101,
+                "mean_1": 1100,
+                "mean_2": 0,
+                "std_1": 0,
+                "std_2": 0,
+                "count": 11
+            },
+            "balances": {
+                "min": 1678,
+                "max": 1678,
+                "mean_1": 1677,
+                "mean_2": 0,
+                "std_1": 0,
+                "std_2": 0,
+                "count": 11
+            },
+            "get_dy": {
+                "min": 35417,
+                "max": 67929,
+                "mean_1": 44299,
+                "mean_2": 64172,
+                "std_1": 2427,
+                "std_2": 2659,
+                "count": 13
+            },
+            "remove_liquidity": {
+                "min": 124064,
+                "max": 141164,
+                "mean_1": 141163,
+                "mean_2": 124063,
+                "std_1": 0,
+                "std_2": 0,
+                "count": 4
+            },
+            "exchange_underlying": {
+                "min": 225422,
+                "max": 289208,
+                "mean_1": 272496,
+                "mean_2": 225421,
+                "std_1": 11816,
+                "std_2": 0,
+                "count": 3
+            }
+        },
+        "min_block": 14669331,
+        "max_block": 15389917
+    },
+    "0xAdCFcf9894335dC340f6Cd182aFA45999F45Fc44": {
+        "univariate": {
+            "add_liquidity": {
+                "mean": 307614,
+                "std": 61454,
+                "min": 178436,
+                "max": 419959,
+                "count": 166
+            },
+            "get_dy": {
+                "mean": 57911,
+                "std": 4142,
+                "min": 45143,
+                "max": 60161,
+                "count": 29
+            },
+            "exchange": {
+                "mean": 352144,
+                "std": 60345,
+                "min": 198731,
+                "max": 459664,
+                "count": 469
+            },
+            "remove_liquidity_one_coin": {
+                "mean": 319580,
+                "std": 53150,
+                "min": 203891,
+                "max": 371227,
+                "count": 114
+            },
+            "remove_liquidity": {
+                "mean": 123143,
+                "std": 2654,
+                "min": 121429,
+                "max": 133229,
+                "count": 41
+            },
+            "price_oracle": {
+                "mean": 20728,
+                "std": 1156,
+                "min": 17797,
+                "max": 21493,
+                "count": 11
+            },
+            "balances": {
+                "mean": 3368,
+                "std": 0,
+                "min": 3368,
+                "max": 3368,
+                "count": 3
+            }
+        },
+        "bimodal": {
+            "add_liquidity": {
+                "min": 178436,
+                "max": 419959,
+                "mean_1": 241408,
+                "mean_2": 356115,
+                "std_1": 17144,
+                "std_2": 15969,
+                "count": 166
+            },
+            "get_dy": {
+                "min": 45143,
+                "max": 60161,
+                "mean_1": 59640,
+                "mean_2": 49769,
+                "std_1": 713,
+                "std_2": 2168,
+                "count": 29
+            },
+            "exchange": {
+                "min": 198731,
+                "max": 459664,
+                "mean_1": 303726,
+                "mean_2": 398275,
+                "std_1": 37335,
+                "std_2": 6251,
+                "count": 469
+            },
+            "remove_liquidity_one_coin": {
+                "min": 203891,
+                "max": 371227,
+                "mean_1": 355618,
+                "mean_2": 247593,
+                "std_1": 7789,
+                "std_2": 13689,
+                "count": 114
+            },
+            "remove_liquidity": {
+                "min": 121429,
+                "max": 133229,
+                "mean_1": 121428,
+                "mean_2": 126450,
+                "std_1": 0,
+                "std_2": 1329,
+                "count": 41
+            },
+            "price_oracle": {
+                "min": 17797,
+                "max": 21493,
+                "mean_1": 21342,
+                "mean_2": 19603,
+                "std_1": 174,
+                "std_2": 830,
+                "count": 11
+            },
+            "balances": {
+                "min": 3368,
+                "max": 3368,
+                "mean_1": 3367,
+                "mean_2": 0,
+                "std_1": 0,
+                "std_2": 0,
+                "count": 3
+            }
+        },
+        "min_block": 13854350,
+        "max_block": 15389316
+    },
+    "0x337ca39842C448030196693f3433332fF1CF3E41": {
+        "univariate": {
+            "remove_liquidity": {
+                "mean": 103012,
+                "std": 0,
+                "min": 103012,
+                "max": 103012,
+                "count": 1
+            },
+            "add_liquidity": {
+                "mean": 296134,
+                "std": 0,
+                "min": 296134,
+                "max": 296134,
+                "count": 1
+            }
+        },
+        "min_block": 15307674,
+        "max_block": 15309127
+    }
+}
