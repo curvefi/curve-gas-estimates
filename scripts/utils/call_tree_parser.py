@@ -65,7 +65,7 @@ def attempt_decode_call_signature(contract: ape.Contract, selector: str):
         method = contract.contract_type.view_methods[selector]
         return method.name or f"<{selector}>"
     else:
-        return method.hex()
+        return method
 
 
 def parse_as_tree(call: CallTreeNode, highlight_contracts: List[str]) -> Tree:
