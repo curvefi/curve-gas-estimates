@@ -51,6 +51,7 @@ def get_calltree(tx_hash: str) -> Optional[CallTreeNode]:
     raw_trace_list = web3.manager.request_blocking("trace_transaction", [tx_hash])
     parity_trace = ParityTraceList.parse_obj(raw_trace_list)
     tree = get_calltree_from_parity_trace(parity_trace, display_cls=CallInfoParser)
+
     return tree
 
 
@@ -66,6 +67,63 @@ def attempt_decode_call_signature(contract: ape.Contract, selector: str):
         return method.name or f"<{selector}>"
     else:
         return method
+
+
+def parse_math_calls(
+    call: CallTreeNode,
+    math_contract: ape.Contract,
+    methods_to_parse: List[str],
+    math_contract_addr: str,
+) -> Dict:
+
+    _ecosystem = ape.networks.ecosystems["ethereum"]
+    address = _ecosystem.decode_address(call.address)
+    selector = call.calldata[:4]
+    method = attempt_decode_call_signature(math_contract, selector)
+    parsed_math_calls = []
+
+    # we only parse math contracts and ignore failed txes:
+    if (
+        not call.failed
+        and address.lower() == math_contract_addr.lower()
+        and method in methods_to_parse
+    ):
+
+        # only highlight contract addresses if they are in highlight_contracts
+        raw_calldata = call.calldata[4:]
+
+        # get math method name:
+        method_abi = math_contract.contract_type.view_methods[selector]
+
+        # get math args:
+        input_types = [i.canonical_type for i in method_abi.inputs]  # type: ignore
+        raw_input_values = decode_abi(input_types, raw_calldata)
+        arguments = [
+            _ecosystem.decode_primitive_value(v, ape.utils.abi.parse_type(t))
+            for v, t in zip(raw_input_values, input_types)
+        ]
+
+        # get returndata:
+        return_value = _ecosystem.decode_returndata(method_abi, call.returndata)[0]
+
+        # compile into return dict:
+        parsed_math_calls.append(
+            {
+                "method": method,
+                "input": arguments,
+                "output": return_value,
+                "gas": call.gas_cost,
+            }
+        )
+
+    for sub_call in call.calls:
+        parsed_subcall = parse_math_calls(
+            sub_call, math_contract, methods_to_parse, math_contract_addr
+        )
+        if parsed_subcall:
+            parsed_math_calls.append(parsed_subcall)
+
+    return parsed_math_calls
 
 
 def parse_as_tree(call: CallTreeNode, highlight_contracts: List[str]) -> Tree:
@@ -242,6 +300,7 @@ def decode_returndata(
     _ecosystem: EcosystemAPI,
     _chain_manager: ape.managers.chain.ChainManager,
 ) -> Any:
+
     values = [
         decode_value(v, _ecosystem, _chain_manager)
         for v in _ecosystem.decode_returndata(method, raw_data)
