@@ -242,6 +242,7 @@ def decode_returndata(
     _ecosystem: EcosystemAPI,
     _chain_manager: ape.managers.chain.ChainManager,
 ) -> Any:
+
     values = [
         decode_value(v, _ecosystem, _chain_manager)
         for v in _ecosystem.decode_returndata(method, raw_data)
