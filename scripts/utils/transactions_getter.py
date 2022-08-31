@@ -7,7 +7,7 @@ MAX_ZERO_TX_QUERIES = 1
 RICH_CONSOLE = RichConsole(file=sys.stdout)
 
 
-def get_block_ranges(end_block: int, nblocks: int = 1000000) -> Tuple[int, int]:
+def get_block_ranges(end_block: int, nblocks: int = 10000) -> Tuple[int, int]:
     return max(end_block - nblocks, 0), max(end_block, 0)
 
 
