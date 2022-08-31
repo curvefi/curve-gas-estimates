@@ -41,7 +41,10 @@ def cli():
     short_help=("Gets crypto math inputs for transactions of a Curve v2 pool",),
 )
 @ape.cli.network_option()
-def crypto_math_data_fetcher(network):
+@click.option(
+    "--max_transactions", "-mt", default=10000, help="Max number of txes", type=int
+)
+def crypto_math_data_fetcher(network, max_transactions):
 
     math_contract = ape.project.CurveCryptoMath.at(CURVE_CRYPTO_MATH)
     tricrypto2_contract = ape.Contract(TRICRYPTO2)
@@ -62,7 +65,9 @@ def crypto_math_data_fetcher(network):
     )
 
     # get transaction
-    txes = list(set(get_all_transactions_for_contract(tricrypto2_contract, 10)))
+    txes = list(
+        set(get_all_transactions_for_contract(tricrypto2_contract, max_transactions))
+    )
 
     for tx in txes:
         call_tree = get_calltree(tx_hash=tx[1])
