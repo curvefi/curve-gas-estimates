@@ -69,7 +69,11 @@ def crypto_math_data_fetcher(network, max_transactions):
         set(get_all_transactions_for_contract(tricrypto2_contract, max_transactions))
     )
 
-    for tx in txes:
+    RICH_CONSOLE.log("[yellow]Getting newton_y and newton_D inputs and outputs ...")
+    for txid, tx in enumerate(txes):
+
+        RICH_CONSOLE.log(f"for transaction [bold yellow]#{txid} [bold blue]{tx} ...")
+
         call_tree = get_calltree(tx_hash=tx[1])
         if call_tree:
 
@@ -80,8 +84,11 @@ def crypto_math_data_fetcher(network, max_transactions):
             )
 
             for parsed_call_info in parsed_math_io:
+
                 try:
+
                     if parsed_call_info["method"] == "newton_y":
+
                         parsed_newton_y = {
                             "tx": tx[1],
                             "ANN": int(parsed_call_info["input"][0]),
@@ -93,7 +100,7 @@ def crypto_math_data_fetcher(network, max_transactions):
                             "i": int(parsed_call_info["input"][4]),
                             "output": int(parsed_call_info["output"]),
                         }
-                        len(parsed_newton_y)
+
                         newton_y_data = pd.concat(
                             [
                                 newton_y_data,
@@ -101,7 +108,9 @@ def crypto_math_data_fetcher(network, max_transactions):
                             ],
                             ignore_index=True,
                         )
+
                     elif parsed_call_info["method"] == "newton_D":
+
                         parsed_newton_D = {
                             "tx": tx[1],
                             "ANN": int(parsed_call_info["input"][0]),
@@ -111,6 +120,7 @@ def crypto_math_data_fetcher(network, max_transactions):
                             "x_unsorted_2": int(parsed_call_info["input"][2][2]),
                             "output": int(parsed_call_info["output"]),
                         }
+
                         newton_D_data = pd.concat(
                             [
                                 newton_D_data,
@@ -118,10 +128,16 @@ def crypto_math_data_fetcher(network, max_transactions):
                             ],
                             ignore_index=True,
                         )
-                except:
-                    print(parsed_call_info["input"][2][0])
-                    raise
 
+                except Exception as e:
+
+                    RICH_CONSOLE.log(
+                        f"[red]Could not get data for tx: [bold blue] {tx}"
+                    )
+                    RICH_CONSOLE.log(e)
+                    continue
+
+    # save data:
     if not newton_D_data.empty:
         RICH_CONSOLE.log("Saving newton_D data ...")
         newton_D_data.to_csv("newton_D_data.csv")
