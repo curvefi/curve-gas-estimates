@@ -7,14 +7,21 @@ import ape
 import click
 from rich.console import Console as RichConsole
 
-from scripts.utils import (compute_univariate_gaussian_gas_stats_for_txes,
-                           get_all_transactions_for_contract,
-                           get_avg_gas_cost_per_method_for_tx, get_calltree,
-                           parse_as_tree)
+from scripts.utils import (
+    compute_univariate_gaussian_gas_stats_for_txes,
+    get_all_transactions_for_contract,
+    get_avg_gas_cost_per_method_for_tx,
+    get_calltree,
+    parse_as_tree,
+)
 from scripts.utils.gas_stats_calculator import (
-    compute_bimodal_gaussian_gas_stats_for_txes, get_gas_cost_for_txes)
-from scripts.utils.pool_getter import (get_cryptoswap_registry_pools,
-                                       get_stableswap_registry_pools)
+    compute_bimodal_gaussian_gas_stats_for_txes,
+    get_gas_cost_for_txes,
+)
+from scripts.utils.pool_getter import (
+    get_cryptoswap_registry_pools,
+    get_stableswap_registry_pools,
+)
 
 STABLESWAP_GAS_TABLE_FILE = "./stableswap_pools_gas_estimates.json"
 CRYPTOSWAP_GAS_TABLE_FILE = "./cryptoswap_pools_gas_estimates.json"
@@ -52,7 +59,9 @@ def _append_gas_table_to_output_file(
 # ---- writes gas table to file ---- #
 
 
-def _fetch_costs_and_save(pools, max_transactions, output_file_name, gas_stats_methods):
+def _fetch_costs_and_save(
+    pools, max_transactions, output_file_name, gas_stats_methods
+):
     # load cache if it exists:
     cached_costs = _load_cache(output_file_name)
     for pool_addr in pools:
@@ -66,9 +75,13 @@ def _fetch_costs_and_save(pools, max_transactions, output_file_name, gas_stats_m
             continue
 
         # get transaction
-        txes = list(set(get_all_transactions_for_contract(pool, max_transactions)))
+        txes = list(
+            set(get_all_transactions_for_contract(pool, max_transactions))
+        )
         if len(txes) == 0:
-            RICH_CONSOLE.log(f"No transactions found for {pool.address}. Moving on.")
+            RICH_CONSOLE.log(
+                f"No transactions found for {pool.address}. Moving on."
+            )
             continue
 
         # truncate list if max_transactions is specified:
@@ -101,7 +114,9 @@ def _fetch_costs_and_save(pools, max_transactions, output_file_name, gas_stats_m
             if has_data:
                 gas_stats["min_block"] = min(blocks)
                 gas_stats["max_block"] = max(blocks)
-                _append_gas_table_to_output_file(output_file_name, pool_addr, gas_stats)
+                _append_gas_table_to_output_file(
+                    output_file_name, pool_addr, gas_stats
+                )
         else:
 
             RICH_CONSOLE.log("Pool cached with similar gas stats. Moving on.")
@@ -153,7 +168,9 @@ def pool_gas_stats(network, max_transactions, pool, pool_type):
         case "stableswap":
             settings["pool_getter"] = [get_stableswap_registry_pools]
             settings["output_file_name"] = [STABLESWAP_GAS_TABLE_FILE]
-            settings["statmethods"] = [[compute_univariate_gaussian_gas_stats_for_txes]]
+            settings["statmethods"] = [
+                [compute_univariate_gaussian_gas_stats_for_txes]
+            ]
         case "cryptoswap":
             settings["pool_getter"] = [get_cryptoswap_registry_pools]
             settings["output_file_name"] = [CRYPTOSWAP_GAS_TABLE_FILE]
@@ -218,7 +235,9 @@ def pool_gas_stats(network, max_transactions, pool, pool_type):
     short_help=("Get aggregated gas costs in a tx for a contract"),
 )
 @ape.cli.network_option()
-@click.option("--contractaddr", "-c", required=True, help="Contract address", type=str)
+@click.option(
+    "--contractaddr", "-c", required=True, help="Contract address", type=str
+)
 @click.option("--tx", "-t", required=True, help="Transaction hash", type=str)
 def get_gas_costs_tx(network, contractaddr, tx):
 

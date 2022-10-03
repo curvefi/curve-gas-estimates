@@ -8,7 +8,7 @@ from pandas import DataFrame
 from rich.console import Console as RichConsole
 from sklearn.mixture import GaussianMixture
 
-from .call_tree_parser import attempt_decode_call_signature, get_calltree
+from .call_tree_parsers import attempt_decode_call_signature, get_calltree
 
 RICH_CONSOLE = RichConsole(file=sys.stdout)
 
@@ -118,12 +118,16 @@ def get_avg_gas_cost_per_method_for_tx(
     return call_costs
 
 
-def get_gas_cost_for_contract(contract: ape.Contract, tx_hash: str) -> Dict[str, int]:
+def get_gas_cost_for_contract(
+    contract: ape.Contract, tx_hash: str
+) -> Dict[str, int]:
 
     call_tree = get_calltree(tx_hash=tx_hash)
     if call_tree:
         try:
-            agg_gas_costs = get_avg_gas_cost_per_method_for_tx(contract, call_tree)
+            agg_gas_costs = get_avg_gas_cost_per_method_for_tx(
+                contract, call_tree
+            )
             return agg_gas_costs
         except:
             RICH_CONSOLE.log(
