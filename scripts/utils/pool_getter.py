@@ -1,7 +1,8 @@
-import ape
-from rich.console import Console as RichConsole
 import sys
 from typing import List
+
+import ape
+from rich.console import Console as RichConsole
 
 RICH_CONSOLE = RichConsole(file=sys.stdout)
 REGISTRIES = {
@@ -27,7 +28,10 @@ def _get_pools(registry: str):
 def get_stableswap_registry_pools() -> List[str]:
     RICH_CONSOLE.log("Getting all stableswap pools ...")
     pools = []
-    for registry in [REGISTRIES["MAIN_REGISTRY"], REGISTRIES["STABLESWAP_FACTORY"]]:
+    for registry in [
+        REGISTRIES["MAIN_REGISTRY"],
+        REGISTRIES["STABLESWAP_FACTORY"],
+    ]:
         pools.extend(_get_pools(registry))
     pools = list(set(pools))
     RICH_CONSOLE.log(f"... found [red]{len(pools)} pools.")

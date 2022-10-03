@@ -1,7 +1,8 @@
-import ape
-from rich.console import Console as RichConsole
 import sys
 from typing import List, Tuple
+
+import ape
+from rich.console import Console as RichConsole
 
 MAX_ZERO_TX_QUERIES = 1
 RICH_CONSOLE = RichConsole(file=sys.stdout)
@@ -34,10 +35,12 @@ def get_transactions_in_block_range(
 
 
 def get_all_transactions_for_contract(
-    contract: ape.Contract, max_transactions: int
+    contract: ape.Contract, max_transactions: int, max_block: int = None
 ) -> List[Tuple[int, str]]:
 
     head = ape.chain.blocks.height
+    if max_block:
+        head = max_block
     block_start, block_end = get_block_ranges(head)
 
     RICH_CONSOLE.log(f"Getting transactions for contract [red]{contract.address}.")
@@ -46,7 +49,7 @@ def get_all_transactions_for_contract(
     while zero_tx_queries < MAX_ZERO_TX_QUERIES and len(txes) < max_transactions:
 
         if block_start == block_end:  # reached genesis
-            RICH_CONSOLE("[yellow]Reached genesis.")
+            RICH_CONSOLE.log("[yellow]Reached genesis.")
             break
 
         tx_in_block = get_transactions_in_block_range(

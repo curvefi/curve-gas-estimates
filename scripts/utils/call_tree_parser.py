@@ -1,33 +1,30 @@
 # inspired from ape > evm-trace
 # this is just a functional version of their object oriented call trace parser
 
+import re
+import sys
+from collections import namedtuple
+from typing import Any, Dict, List, Optional
+
 import ape
 from ape.api import EcosystemAPI
 from ape.exceptions import ContractError, DecodingError
-from ape.utils.trace import (
-    _MethodTraceSignature,
-    TraceStyles,
-    _DEFAULT_TRACE_GAS_PATTERN,
-    _DEFAULT_WRAP_THRESHOLD,
-    _DEFAULT_INDENT,
-)
 from ape.utils.abi import Struct, parse_type
-from collections import namedtuple
+from ape.utils.trace import (_DEFAULT_INDENT, _DEFAULT_TRACE_GAS_PATTERN,
+                             _DEFAULT_WRAP_THRESHOLD, TraceStyles,
+                             _MethodTraceSignature)
 from eth_abi import decode_abi
 from eth_abi.exceptions import InsufficientDataBytes
 from eth_utils import humanize_hash, is_hex_address
 from ethpm_types import HexBytes
 from ethpm_types.abi import MethodABI
+from evm_trace import (CallTreeNode, ParityTraceList,
+                       get_calltree_from_parity_trace)
 from evm_trace.base import CallTreeNode
 from evm_trace.display import DisplayableCallTreeNode
-from evm_trace import CallTreeNode, ParityTraceList, get_calltree_from_parity_trace
 from hexbytes import HexBytes
-import re
-from rich.tree import Tree
 from rich.console import Console as RichConsole
-import sys
-from typing import Optional, Dict, Any, List
-
+from rich.tree import Tree
 
 CallInfo = namedtuple("call", ["address", "gas_cost", "method_id", "calldata"])
 RICH_CONSOLE = RichConsole(file=sys.stdout)
@@ -313,7 +310,9 @@ def decode_returndata(
 
 
 def decode_value(
-    value, _ecosystem: EcosystemAPI, _chain_manager: ape.managers.chain.ChainManager
+    value,
+    _ecosystem: EcosystemAPI,
+    _chain_manager: ape.managers.chain.ChainManager,
 ):
     if isinstance(value, HexBytes):
         try:

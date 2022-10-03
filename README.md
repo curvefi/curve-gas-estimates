@@ -165,7 +165,7 @@ For stableswap:
 ape run gas_tools pools --max_transactions 100 --pool_type stableswap
 ```
 
-For cryptoswa:
+For cryptoswap:
 
 ```
 ape run gas_tools pools --max_transactions 100 --pool_type cryptoswap
@@ -194,6 +194,20 @@ ape run gas_tools tx --contractaddr 0x4CA9b3063Ec5866A4B82E437059D2C43d1be596F -
 ```
 
 This will return a trace where only the pool contract is decoded. It will also provide average gas costs for each method called in the contract.
+
+### Crypto Math tools
+
+Scripts to fetch Crypto Math. This is specifically interesting for researchers looking into the mathematics of Cryptoswap (tricrypto2). To fetch `newton_y` and `newton_D` inputs and outputs, the cli prompt is:
+
+```
+ape run newton_math_tools tricrypto2 --max_transactions 10 --max_block 15537394
+```
+
+`max_block` is introduced for researchers who want to start their traversal from a specific block height (say, pre-merge txes). For debugging, the following command is useful:
+
+```
+ape run newton_math_tools tx --tx 0xd071cc29a2eede8162a476a4c301aa36bc5dc1f053da3440027a911429f8d08d
+```
 
 ### License
 

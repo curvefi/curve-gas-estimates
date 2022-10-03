@@ -1,20 +1,18 @@
 import json
 import sys
+
 import ape
 import click
-
 import pandas as pd
 from rich.console import Console as RichConsole
-from scripts.utils.call_tree_parser import (
-    get_calltree,
-    parse_as_tree,
-    parse_math_calls,
-)
-from scripts.utils.transactions_getter import get_all_transactions_for_contract
 
+from scripts.utils.call_tree_parser import (get_calltree, parse_as_tree,
+                                            parse_math_calls)
+from scripts.utils.transactions_getter import get_all_transactions_for_contract
 
 CURVE_CRYPTO_MATH = "0x8F68f4810CcE3194B6cB6F3d50fa58c2c9bDD1d5"
 TRICRYPTO2 = "0xD51a44d3FaE010294C616388b506AcdA1bfAAE46"
+MERGE_BLOCK_HEIGHT = 15537394
 RICH_CONSOLE = RichConsole(file=sys.stdout)
 METHODS_TO_PARSE = ["newton_y", "newton_D"]
 
@@ -42,9 +40,24 @@ def cli():
 )
 @ape.cli.network_option()
 @click.option(
-    "--max_transactions", "-mt", default=10000, help="Max number of txes", type=int
+    "--max_transactions",
+    "-mt",
+    default=10000,
+    help="Max number of txes",
+    type=int,
 )
-def crypto_math_data_fetcher(network, max_transactions):
+@click.option(
+    "--max_block",
+    "-mb",
+    default=MERGE_BLOCK_HEIGHT,
+    help="Max block height",
+    type=int,
+)
+def crypto_math_data_fetcher(network, max_transactions, max_block):
+
+    RICH_CONSOLE.log(
+        f"[red]MAX BLOCK HEIGHT is set to merge block height: {MERGE_BLOCK_HEIGHT}"
+    )
 
     math_contract = ape.project.CurveCryptoMath.at(CURVE_CRYPTO_MATH)
     tricrypto2_contract = ape.Contract(TRICRYPTO2)
@@ -66,8 +79,14 @@ def crypto_math_data_fetcher(network, max_transactions):
 
     # get transaction
     txes = list(
-        set(get_all_transactions_for_contract(tricrypto2_contract, max_transactions))
+        set(
+            get_all_transactions_for_contract(
+                tricrypto2_contract, max_transactions, max_block
+            )
+        )
     )
+    if len(txes) > max_transactions:
+        txes = txes[:max_transactions]  # truncate to max_transactions
 
     RICH_CONSOLE.log("[yellow]Getting newton_y and newton_D inputs and outputs ...")
     for txid, tx in enumerate(txes):
@@ -79,11 +98,14 @@ def crypto_math_data_fetcher(network, max_transactions):
 
             parsed_math_io = flatten(
                 parse_math_calls(
-                    call_tree, math_contract, METHODS_TO_PARSE, CURVE_CRYPTO_MATH
+                    call_tree,
+                    math_contract,
+                    METHODS_TO_PARSE,
+                    CURVE_CRYPTO_MATH,
                 )
             )
 
-            for parsed_call_info in parsed_math_io:
+            for call_order, parsed_call_info in enumerate(parsed_math_io):
 
                 try:
 
@@ -91,6 +113,7 @@ def crypto_math_data_fetcher(network, max_transactions):
 
                         parsed_newton_y = {
                             "tx": tx[1],
+                            "call_order": int(call_order),
                             "ANN": int(parsed_call_info["input"][0]),
                             "gamma": int(parsed_call_info["input"][1]),
                             "x0": int(parsed_call_info["input"][2][0]),
@@ -113,6 +136,7 @@ def crypto_math_data_fetcher(network, max_transactions):
 
                         parsed_newton_D = {
                             "tx": tx[1],
+                            "call_order": int(call_order),
                             "ANN": int(parsed_call_info["input"][0]),
                             "gamma": int(parsed_call_info["input"][1]),
                             "x_unsorted_0": int(parsed_call_info["input"][2][0]),

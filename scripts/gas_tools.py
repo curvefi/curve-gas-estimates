@@ -1,27 +1,20 @@
-import ape
-import click
 import json
 import os
 import sys
-from rich.console import Console as RichConsole
-from scripts.utils import (
-    get_all_transactions_for_contract,
-    get_avg_gas_cost_per_method_for_tx,
-    get_calltree,
-    parse_as_tree,
-    compute_univariate_gaussian_gas_stats_for_txes,
-)
 from typing import Dict
+
+import ape
+import click
+from rich.console import Console as RichConsole
+
+from scripts.utils import (compute_univariate_gaussian_gas_stats_for_txes,
+                           get_all_transactions_for_contract,
+                           get_avg_gas_cost_per_method_for_tx, get_calltree,
+                           parse_as_tree)
 from scripts.utils.gas_stats_calculator import (
-    compute_bimodal_gaussian_gas_stats_for_txes,
-    get_gas_cost_for_txes,
-)
-
-from scripts.utils.pool_getter import (
-    get_cryptoswap_registry_pools,
-    get_stableswap_registry_pools,
-)
-
+    compute_bimodal_gaussian_gas_stats_for_txes, get_gas_cost_for_txes)
+from scripts.utils.pool_getter import (get_cryptoswap_registry_pools,
+                                       get_stableswap_registry_pools)
 
 STABLESWAP_GAS_TABLE_FILE = "./stableswap_pools_gas_estimates.json"
 CRYPTOSWAP_GAS_TABLE_FILE = "./cryptoswap_pools_gas_estimates.json"
@@ -232,7 +225,10 @@ def get_gas_costs_tx(network, contractaddr, tx):
     contract = ape.Contract(contractaddr)
     call_tree = get_calltree(tx_hash=tx)
     if call_tree:
-        rich_call_tree = parse_as_tree(call_tree, [contract.address])
+        rich_call_tree = parse_as_tree(
+            call_tree,
+            [contract.address, "0x8F68f4810CcE3194B6cB6F3d50fa58c2c9bDD1d5"],
+        )
 
         RICH_CONSOLE.log(f"Call trace for [bold blue]'{tx}'[/]")
         RICH_CONSOLE.log(rich_call_tree)

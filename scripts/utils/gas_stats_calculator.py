@@ -1,17 +1,14 @@
+import sys
+from typing import Dict, List
+
 import ape
-from evm_trace import CallTreeNode
 import numpy
+from evm_trace import CallTreeNode
 from pandas import DataFrame
 from rich.console import Console as RichConsole
-import sys
 from sklearn.mixture import GaussianMixture
-from typing import List, Dict
 
-from .call_tree_parser import (
-    attempt_decode_call_signature,
-    get_calltree,
-)
-
+from .call_tree_parser import attempt_decode_call_signature, get_calltree
 
 RICH_CONSOLE = RichConsole(file=sys.stdout)
 
@@ -44,7 +41,9 @@ def compute_univariate_gaussian_gas_stats_for_txes(
     return {"univariate": gas_table}
 
 
-def compute_bimodal_gaussian_gas_stats_for_txes(gas_costs_for_pool: DataFrame) -> Dict:
+def compute_bimodal_gaussian_gas_stats_for_txes(
+    gas_costs_for_pool: DataFrame,
+) -> Dict:
 
     RICH_CONSOLE.log("Computing bimodal gaussian gas stats ...")
 
@@ -99,7 +98,9 @@ def get_avg_gas_cost_per_method_for_tx(
             continue
 
         # decode call signature
-        method_name = attempt_decode_call_signature(contract, call.info.calldata[:4])
+        method_name = attempt_decode_call_signature(
+            contract, call.info.calldata[:4]
+        )
 
         if call.info.method_id not in call_costs.keys():
             call_costs[method_name] = [call.info.gas_cost]
