@@ -4,10 +4,8 @@ import ape
 import click
 from rich.console import Console as RichConsole
 
-from scripts.utils.call_tree_parsers import (
-    get_calltree,
-    get_num_method_invokes_in_call_tree,
-)
+from scripts.utils.call_tree_parsers import get_num_method_invokes_in_call_tree
+from scripts.utils.call_tree_parser_utils import get_calltree
 from scripts.utils.transactions_getter import get_all_transactions_for_contract
 
 CURVE_CRYPTO_MATH = "0x8F68f4810CcE3194B6cB6F3d50fa58c2c9bDD1d5"
@@ -35,7 +33,7 @@ def cli():
 
 @cli.command(
     cls=ape.cli.NetworkBoundCommand,
-    name="get_state_reading_txes",
+    name="scrape",
     short_help=("Gets transactions which read Curve pool states",),
 )
 @ape.cli.network_option()
@@ -60,18 +58,33 @@ def cli():
     help="Max block height",
     type=int,
 )
-def crypto_math_data_fetcher(network, contract, max_transactions, max_block):
+@click.option(
+    "--methods", 
+    "-m", 
+    default=[
+        "get_dy",
+        "calc_token_amount",
+        "calc_withdraw_one_coin",
+    ], 
+    help="Methods to scrape", 
+    type=str,
+    multiple=True,
+)
+@click.option(
+    "--output_file",
+    "-o",
+    default="contract_method_call_log.txt",
+    type=str,
+    help="Text file to write output to",
+)
+def crypto_math_data_fetcher(
+    network, contract, max_transactions, max_block, methods, output_file
+):
 
     RICH_CONSOLE.log(
         f"[red]MAX BLOCK HEIGHT is set to merge block height: {MERGE_BLOCK_HEIGHT}"
     )
-
-    economic_state_reading_methods = [
-        "balances",
-        "get_dy",
-        "calc_token_amount",
-        "calc_withdraw_one_coin",
-    ]
+    contract = ape.Contract(contract)
 
     # get transaction
     txes = list(
@@ -88,19 +101,20 @@ def crypto_math_data_fetcher(network, contract, max_transactions, max_block):
     for txid, tx in enumerate(txes):
 
         RICH_CONSOLE.log(
-            f"for transaction [bold yellow]#{txid} [bold blue]{tx} ..."
+            f"Parsing [bold yellow]#{txid} [bold blue]{tx[1]} [white]at "
+            f"block [bold blue]{tx[0]}."
         )
         call_tree = get_calltree(tx_hash=tx[1])
+        
+        contract_methods_called = get_num_method_invokes_in_call_tree(
+            contract=contract, 
+            call=call_tree, 
+            methods_to_check=methods, 
+        )
+        if len(contract_methods_called) > 0:
+            RICH_CONSOLE.log(f"[bold green]Detected method(s) call.")
+            sus_txes.append((tx[0], tx[1], ', '.join(contract_methods_called)))
 
-        if (
-            get_num_method_invokes_in_call_tree(
-                call_tree, economic_state_reading_methods, num_calls=0
-            )
-            > 0
-        ):
-            RICH_CONSOLE.log(f"[bold green]Transaction reads state")
-            sus_txes.append(tx)
-
-    with open("sus_txes.txt", "w") as f:
+    with open(output_file, "w") as f:
         for tx in sus_txes:
-            f.write(f"{tx[0]}: {tx[1]}")
+            f.write(f"{tx[0]}: {tx[1]} -> ({tx[2]})\n")

@@ -43,14 +43,10 @@ def get_all_transactions_for_contract(
         head = max_block
     block_start, block_end = get_block_ranges(head)
 
-    RICH_CONSOLE.log(
-        f"Getting transactions for contract [red]{contract.address}."
-    )
+    RICH_CONSOLE.log(f"Getting transactions for contract [red]{contract.address}.")
     zero_tx_queries = 0
     txes = []
-    while (
-        zero_tx_queries < MAX_ZERO_TX_QUERIES and len(txes) < max_transactions
-    ):
+    while zero_tx_queries < MAX_ZERO_TX_QUERIES and len(txes) < max_transactions:
 
         if block_start == block_end:  # reached genesis
             RICH_CONSOLE.log("[yellow]Reached genesis.")

@@ -14,11 +14,8 @@ from eth_abi.exceptions import InsufficientDataBytes
 from eth_utils import humanize_hash, is_hex_address
 from ethpm_types import HexBytes
 from ethpm_types.abi import MethodABI
-from evm_trace import (
-    CallTreeNode,
-    ParityTraceList,
-    get_calltree_from_parity_trace,
-)
+from evm_trace import (CallTreeNode, ParityTraceList,
+                       get_calltree_from_parity_trace)
 from evm_trace.base import CallTreeNode
 from evm_trace.display import DisplayableCallTreeNode
 from hexbytes import HexBytes
@@ -57,13 +54,9 @@ def attempt_decode_call_signature(contract: ape.Contract, selector: str):
 def get_calltree(tx_hash: str) -> Optional[CallTreeNode]:
 
     web3 = ape.chain.provider.web3
-    raw_trace_list = web3.manager.request_blocking(
-        "trace_transaction", [tx_hash]
-    )
+    raw_trace_list = web3.manager.request_blocking("trace_transaction", [tx_hash])
     parity_trace = ParityTraceList.parse_obj(raw_trace_list)
-    tree = get_calltree_from_parity_trace(
-        parity_trace, display_cls=CallInfoParser
-    )
+    tree = get_calltree_from_parity_trace(parity_trace, display_cls=CallInfoParser)
 
     return tree
 
@@ -145,15 +138,12 @@ def decode_value(
         return f'"{value}"'
 
     elif isinstance(value, (list, tuple)):
-        decoded_values = [
-            decode_value(v, _ecosystem, _chain_manager) for v in value
-        ]
+        decoded_values = [decode_value(v, _ecosystem, _chain_manager) for v in value]
         return decoded_values
 
     elif isinstance(value, Struct):
         decoded_values = {
-            k: decode_value(v, _ecosystem, _chain_manager)
-            for k, v in value.items()
+            k: decode_value(v, _ecosystem, _chain_manager) for k, v in value.items()
         }
         return decoded_values
 
@@ -172,9 +162,7 @@ def decode_address(
     if contract_type:
         contract_name = contract_type.name
         if "symbol" in contract_type.view_methods:
-            contract = _chain_manager.contracts.instance_at(
-                address, contract_type
-            )
+            contract = _chain_manager.contracts.instance_at(address, contract_type)
             try:
                 contract_name = contract.symbol() or contract_name
             except ContractError:

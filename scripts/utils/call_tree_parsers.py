@@ -4,13 +4,9 @@ from typing import Dict, List, Optional
 
 import ape
 from ape.exceptions import ContractError, DecodingError
-from ape.utils.trace import (
-    _DEFAULT_INDENT,
-    _DEFAULT_TRACE_GAS_PATTERN,
-    _DEFAULT_WRAP_THRESHOLD,
-    TraceStyles,
-    _MethodTraceSignature,
-)
+from ape.utils.trace import (_DEFAULT_INDENT, _DEFAULT_TRACE_GAS_PATTERN,
+                             _DEFAULT_WRAP_THRESHOLD, TraceStyles,
+                             _MethodTraceSignature)
 from eth_abi import decode_abi
 from eth_abi.exceptions import InsufficientDataBytes
 from evm_trace import CallTreeNode
@@ -20,10 +16,7 @@ from rich.console import Console as RichConsole
 from rich.tree import Tree
 
 from scripts.utils.call_tree_parser_utils import (
-    attempt_decode_call_signature,
-    decode_calldata,
-    decode_returndata,
-)
+    attempt_decode_call_signature, decode_calldata, decode_returndata)
 
 RICH_CONSOLE = RichConsole(file=sys.stdout)
 
@@ -63,9 +56,7 @@ def parse_math_calls(
         ]
 
         # get returndata:
-        return_value = _ecosystem.decode_returndata(
-            method_abi, call.returndata
-        )[0]
+        return_value = _ecosystem.decode_returndata(method_abi, call.returndata)[0]
 
         # compile into return dict:
         parsed_math_calls.append(
@@ -146,9 +137,7 @@ def parse_as_tree(call: CallTreeNode, highlight_contracts: List[str]) -> Tree:
         method = None
         contract_name = contract_type.name
         if "symbol" in contract_type.view_methods:
-            contract = _chain_manager.contracts.instance_at(
-                address, contract_type
-            )
+            contract = _chain_manager.contracts.instance_at(address, contract_type)
             try:
                 contract_name = contract.symbol() or contract_name
             except ContractError:
@@ -210,7 +199,9 @@ def parse_as_tree(call: CallTreeNode, highlight_contracts: List[str]) -> Tree:
             # Only for mypy's sake. May never get here.
             call_signature = f"{address}.<{selector.hex()}>"
             if call.gas_cost:
-                call_signature = f"{call_signature} [{TraceStyles.GAS_COST}][{call.gas_cost} gas][/]"
+                call_signature = (
+                    f"{call_signature} [{TraceStyles.GAS_COST}][{call.gas_cost} gas][/]"
+                )
 
     if call.value:
         eth_value = round(call.value / 10**18, 8)
@@ -225,33 +216,32 @@ def parse_as_tree(call: CallTreeNode, highlight_contracts: List[str]) -> Tree:
 
 
 def get_num_method_invokes_in_call_tree(
+    contract: ape.Contract,
     call: CallTreeNode,
     methods_to_check: List[str],
-    num_calls: int = 0,
-) -> int:
+    method_called: List[str] = [],
+) -> List[str]:
 
-    _ecosystem = ape.networks.ecosystems["ethereum"]
-    _chain_manager = (
-        ape.networks.ecosystems["ethereum"].networks["mainnet"].chain_manager
-    )
-
-    selector = call.calldata[:4]
-    address = _ecosystem.decode_address(call.address)
-    contract_type = _chain_manager.contracts.get(address)
     selector = call.calldata[:4]
 
     method = None
-    if selector in contract_type.view_methods:
-        method = contract_type.view_methods[selector]
+    if selector in contract.contract_type.mutable_methods:
+        method = contract.contract_type.mutable_methods[selector]
+    elif selector in contract.contract_type.view_methods:
+        method = contract.contract_type.view_methods[selector]
 
-    # increase num_calls if method is invoked
-    if not call.failed and method in methods_to_check:
-        num_calls += 1
+    if method:
+
+        method = attempt_decode_call_signature(contract, selector)
+
+        # increase num_calls if method is invoked
+        if not call.failed and method in methods_to_check:
+            method_called.append(method)
 
     for sub_call in call.calls:
 
-        num_calls = get_num_method_invokes_in_call_tree(
-            sub_call, methods_to_check, num_calls
+        method_called = get_num_method_invokes_in_call_tree(
+            contract, sub_call, methods_to_check, method_called
         )
 
-    return num_calls
+    return method_called

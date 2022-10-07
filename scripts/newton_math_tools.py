@@ -6,11 +6,8 @@ import click
 import pandas as pd
 from rich.console import Console as RichConsole
 
-from scripts.utils.call_tree_parsers import (
-    get_calltree,
-    parse_as_tree,
-    parse_math_calls,
-)
+from scripts.utils.call_tree_parser_utils import get_calltree
+from scripts.utils.call_tree_parsers import parse_as_tree, parse_math_calls
 from scripts.utils.transactions_getter import get_all_transactions_for_contract
 
 CURVE_CRYPTO_MATH = "0x8F68f4810CcE3194B6cB6F3d50fa58c2c9bDD1d5"
@@ -39,9 +36,7 @@ def cli():
 @cli.command(
     cls=ape.cli.NetworkBoundCommand,
     name="tricrypto2",
-    short_help=(
-        "Gets crypto math inputs for transactions of a Curve v2 pool",
-    ),
+    short_help=("Gets crypto math inputs for transactions of a Curve v2 pool",),
 )
 @ape.cli.network_option()
 @click.option(
@@ -93,14 +88,10 @@ def crypto_math_data_fetcher(network, max_transactions, max_block):
     if len(txes) > max_transactions:
         txes = txes[:max_transactions]  # truncate to max_transactions
 
-    RICH_CONSOLE.log(
-        "[yellow]Getting newton_y and newton_D inputs and outputs ..."
-    )
+    RICH_CONSOLE.log("[yellow]Getting newton_y and newton_D inputs and outputs ...")
     for txid, tx in enumerate(txes):
 
-        RICH_CONSOLE.log(
-            f"for transaction [bold yellow]#{txid} [bold blue]{tx} ..."
-        )
+        RICH_CONSOLE.log(f"for transaction [bold yellow]#{txid} [bold blue]{tx} ...")
 
         call_tree = get_calltree(tx_hash=tx[1])
         if call_tree:
@@ -148,15 +139,9 @@ def crypto_math_data_fetcher(network, max_transactions, max_block):
                             "call_order": int(call_order),
                             "ANN": int(parsed_call_info["input"][0]),
                             "gamma": int(parsed_call_info["input"][1]),
-                            "x_unsorted_0": int(
-                                parsed_call_info["input"][2][0]
-                            ),
-                            "x_unsorted_1": int(
-                                parsed_call_info["input"][2][1]
-                            ),
-                            "x_unsorted_2": int(
-                                parsed_call_info["input"][2][2]
-                            ),
+                            "x_unsorted_0": int(parsed_call_info["input"][2][0]),
+                            "x_unsorted_1": int(parsed_call_info["input"][2][1]),
+                            "x_unsorted_2": int(parsed_call_info["input"][2][2]),
                             "output": int(parsed_call_info["output"]),
                         }
 
@@ -197,9 +182,7 @@ def get_gas_costs_tx(network, tx):
     math_contract = ape.project.CurveCryptoMath.at(CURVE_CRYPTO_MATH)
     call_tree = get_calltree(tx_hash=tx)
     if call_tree:
-        rich_call_tree = parse_as_tree(
-            call_tree, [TRICRYPTO2, CURVE_CRYPTO_MATH]
-        )
+        rich_call_tree = parse_as_tree(call_tree, [TRICRYPTO2, CURVE_CRYPTO_MATH])
 
         RICH_CONSOLE.log(f"Call trace for [bold blue]'{tx}'[/]")
         RICH_CONSOLE.log(rich_call_tree)
