@@ -4,8 +4,8 @@ import ape
 import click
 from rich.console import Console as RichConsole
 
-from scripts.utils.call_tree_parsers import get_num_method_invokes_in_call_tree
 from scripts.utils.call_tree_parser_utils import get_calltree
+from scripts.utils.call_tree_parsers import get_num_method_invokes_in_call_tree
 from scripts.utils.transactions_getter import get_all_transactions_for_contract
 
 CURVE_CRYPTO_MATH = "0x8F68f4810CcE3194B6cB6F3d50fa58c2c9bDD1d5"
@@ -38,11 +38,12 @@ def cli():
 )
 @ape.cli.network_option()
 @click.option(
-    "--contract",
+    "--contracts",
     "-c",
     required=True,
     type=str,
     help="address of contract who's state is being read in the tx",
+    multiple=True,
 )
 @click.option(
     "--max_transactions",
@@ -59,14 +60,14 @@ def cli():
     type=int,
 )
 @click.option(
-    "--methods", 
-    "-m", 
+    "--methods",
+    "-m",
     default=[
         "get_dy",
         "calc_token_amount",
         "calc_withdraw_one_coin",
-    ], 
-    help="Methods to scrape", 
+    ],
+    help="Methods to scrape",
     type=str,
     multiple=True,
 )
@@ -77,23 +78,26 @@ def cli():
     type=str,
     help="Text file to write output to",
 )
-def crypto_math_data_fetcher(
-    network, contract, max_transactions, max_block, methods, output_file
-):
+def sniff(network, contracts, max_transactions, max_block, methods, output_file):
 
     RICH_CONSOLE.log(
         f"[red]MAX BLOCK HEIGHT is set to merge block height: {MERGE_BLOCK_HEIGHT}"
     )
-    contract = ape.Contract(contract)
 
     # get transaction
-    txes = list(
-        set(
-            get_all_transactions_for_contract(
-                contract, max_transactions, max_block
+    txes = []
+    for contract in contracts:
+        contract = ape.Contract(contract)
+        txes.extend(
+            list(
+                set(
+                    get_all_transactions_for_contract(
+                        contract, max_transactions, max_block
+                    )
+                )
             )
         )
-    )
+
     if len(txes) > max_transactions:
         txes = txes[:max_transactions]  # truncate to max_transactions
 
@@ -105,15 +109,18 @@ def crypto_math_data_fetcher(
             f"block [bold blue]{tx[0]}."
         )
         call_tree = get_calltree(tx_hash=tx[1])
-        
-        contract_methods_called = get_num_method_invokes_in_call_tree(
-            contract=contract, 
-            call=call_tree, 
-            methods_to_check=methods, 
-        )
+
+        contract_methods_called = []
+        for contract in contracts:
+            contract = ape.Contract(contract)
+            contract_methods_called = get_num_method_invokes_in_call_tree(
+                contract=contract,
+                call=call_tree,
+                methods_to_check=methods,
+            )
         if len(contract_methods_called) > 0:
             RICH_CONSOLE.log(f"[bold green]Detected method(s) call.")
-            sus_txes.append((tx[0], tx[1], ', '.join(contract_methods_called)))
+            sus_txes.append((tx[0], tx[1], ", ".join(contract_methods_called)))
 
     with open(output_file, "w") as f:
         for tx in sus_txes:
