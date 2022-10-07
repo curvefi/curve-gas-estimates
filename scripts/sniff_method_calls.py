@@ -5,7 +5,7 @@ import click
 from rich.console import Console as RichConsole
 
 from scripts.utils.call_tree_parser_utils import get_calltree
-from scripts.utils.call_tree_parsers import get_num_method_invokes_in_call_tree
+from scripts.utils.call_tree_parsers import get_method_invokes_in_call_tree
 from scripts.utils.transactions_getter import get_all_transactions_for_contract
 
 CURVE_CRYPTO_MATH = "0x8F68f4810CcE3194B6cB6F3d50fa58c2c9bDD1d5"
@@ -113,11 +113,14 @@ def sniff(network, contracts, max_transactions, max_block, methods, output_file)
         contract_methods_called = []
         for contract in contracts:
             contract = ape.Contract(contract)
-            contract_methods_called = get_num_method_invokes_in_call_tree(
-                contract=contract,
-                call=call_tree,
-                methods_to_check=methods,
+            contract_methods_called.extend(
+                get_method_invokes_in_call_tree(
+                    contract=contract,
+                    call=call_tree,
+                    methods_to_check=methods,
+                )
             )
+            
         if len(contract_methods_called) > 0:
             RICH_CONSOLE.log(f"[bold green]Detected method(s) call.")
             sus_txes.append((tx[0], tx[1], ", ".join(contract_methods_called)))

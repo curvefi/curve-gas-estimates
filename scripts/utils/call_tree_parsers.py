@@ -215,12 +215,13 @@ def parse_as_tree(call: CallTreeNode, highlight_contracts: List[str]) -> Tree:
     return parent
 
 
-def get_num_method_invokes_in_call_tree(
+def get_method_invokes_in_call_tree(
     contract: ape.Contract,
     call: CallTreeNode,
     methods_to_check: List[str],
-    method_called: List[str] = [],
 ) -> List[str]:
+    
+    method_called = []
 
     selector = call.calldata[:4]
 
@@ -240,8 +241,8 @@ def get_num_method_invokes_in_call_tree(
 
     for sub_call in call.calls:
 
-        method_called = get_num_method_invokes_in_call_tree(
-            contract, sub_call, methods_to_check, method_called
+        method_called += get_method_invokes_in_call_tree(
+            contract, sub_call, methods_to_check
         )
 
     return method_called
