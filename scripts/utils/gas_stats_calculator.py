@@ -8,7 +8,8 @@ from pandas import DataFrame
 from rich.console import Console as RichConsole
 from sklearn.mixture import GaussianMixture
 
-from .call_tree_parser import attempt_decode_call_signature, get_calltree
+from scripts.utils.call_tree_parser_utils import get_calltree
+from scripts.utils.call_tree_parsers import attempt_decode_call_signature
 
 RICH_CONSOLE = RichConsole(file=sys.stdout)
 
@@ -98,9 +99,7 @@ def get_avg_gas_cost_per_method_for_tx(
             continue
 
         # decode call signature
-        method_name = attempt_decode_call_signature(
-            contract, call.info.calldata[:4]
-        )
+        method_name = attempt_decode_call_signature(contract, call.info.calldata[:4])
 
         if call.info.method_id not in call_costs.keys():
             call_costs[method_name] = [call.info.gas_cost]

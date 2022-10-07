@@ -7,14 +7,15 @@ import ape
 import click
 from rich.console import Console as RichConsole
 
-from scripts.utils import (compute_univariate_gaussian_gas_stats_for_txes,
-                           get_all_transactions_for_contract,
-                           get_avg_gas_cost_per_method_for_tx, get_calltree,
-                           parse_as_tree)
+from scripts.utils.call_tree_parser_utils import get_calltree
+from scripts.utils.call_tree_parsers import parse_as_tree
 from scripts.utils.gas_stats_calculator import (
-    compute_bimodal_gaussian_gas_stats_for_txes, get_gas_cost_for_txes)
+    compute_bimodal_gaussian_gas_stats_for_txes,
+    compute_univariate_gaussian_gas_stats_for_txes,
+    get_avg_gas_cost_per_method_for_tx, get_gas_cost_for_txes)
 from scripts.utils.pool_getter import (get_cryptoswap_registry_pools,
                                        get_stableswap_registry_pools)
+from scripts.utils.transactions_getter import get_all_transactions_for_contract
 
 STABLESWAP_GAS_TABLE_FILE = "./stableswap_pools_gas_estimates.json"
 CRYPTOSWAP_GAS_TABLE_FILE = "./cryptoswap_pools_gas_estimates.json"

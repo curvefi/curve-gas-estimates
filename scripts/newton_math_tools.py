@@ -6,8 +6,8 @@ import click
 import pandas as pd
 from rich.console import Console as RichConsole
 
-from scripts.utils.call_tree_parser import (get_calltree, parse_as_tree,
-                                            parse_math_calls)
+from scripts.utils.call_tree_parser_utils import get_calltree
+from scripts.utils.call_tree_parsers import parse_as_tree, parse_math_calls
 from scripts.utils.transactions_getter import get_all_transactions_for_contract
 
 CURVE_CRYPTO_MATH = "0x8F68f4810CcE3194B6cB6F3d50fa58c2c9bDD1d5"
